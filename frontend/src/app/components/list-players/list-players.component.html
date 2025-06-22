@@ -1,1 +1,48 @@
-<p>list-players works!</p>
+<div class="container mt-5">
+  <h1>Colección de Jugadores</h1>
+  <div class="baseball-cards-container">
+    @for (player of listPlayers; track $index) {
+    <div class="baseball-card">
+      <div class="card-wrapper">
+        <div class="card-face front">
+          <div class="card-header">{{player.club_name}}</div>
+          <div class="player-image-container">
+            <img [src]="player.player_face_url" alt="{{player.long_name}}" class="player-image" onerror="this.src='https://via.placeholder.com/150x200'">
+          </div>
+          <div class="player-info">
+            <h2 class="player-name">{{player.long_name}}</h2>
+            <div class="player-position">{{player.player_positions}}</div>
+          </div>
+        </div>
+        <div class="card-face back">
+          <div class="card-back-content">
+            <div class="stats-header">Estadísticas</div>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">Edad</span>
+                <span class="stat-value">{{player.age}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Versión</span>
+                <span class="stat-value">FIFA {{player.fifa_version}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Altura</span>
+                <span class="stat-value">1.70m</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Peso</span>
+                <span class="stat-value">72kg</span>
+              </div>
+            </div>
+            <div class="player-bio">
+              <p>Considerado uno de los mejores jugadores de todos los tiempos. Multiple ganador del Balón de Oro.</p>
+            </div>
+            <div class="card-footer">Colección 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

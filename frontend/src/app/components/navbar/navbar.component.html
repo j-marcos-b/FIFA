@@ -1,30 +1,33 @@
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">FIFA Players Hub</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Logo/Brand a la izquierda -->
+    <a class="navbar-brand" href="#"><span>FIFA</span> Players Hub</a>
+    
+    <!-- Toggler para móvil -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Jugadores
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Crear Jugador</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+    
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <!-- Buscador centrado -->
+      <div class="d-flex flex-grow-1 justify-content-center mx-lg-3">
+        <form class="w-100" style="max-width: 600px;">
+          <div class="input-group">
+            <input class="form-control form-control-lg" type="search" 
+                   placeholder="Buscar jugador..." aria-label="Search">
+            <button id="btn-search" class="btn btn-dark" type="submit">
+              Buscar
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Botones derecha -->
+      <div class="d-flex">
+        <a href="#" class="btn btn-dark me-2">Login</a>
+        <a href="#" class="btn btn-dark">Logout</a>
+      </div>
     </div>
   </div>
 </nav>

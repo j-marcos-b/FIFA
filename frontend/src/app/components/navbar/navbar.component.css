@@ -1,0 +1,22 @@
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+a {
+    color: #fff;
+}
+
+#btn-search {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+span {
+    font-weight: bold;
+    font-size: x-large;
+    color: #32FBE2;
+}
