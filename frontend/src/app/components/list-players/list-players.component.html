@@ -1,17 +1,41 @@
 <div class="container mt-5">
-  <h1>Colección de Jugadores</h1>
-  <div class="baseball-cards-container">
+  <h1 class="collection-title">Colección de Jugadores FIFA</h1>
+  <div class="football-cards-container">
     @for (player of listPlayers; track $index) {
-    <div class="baseball-card">
+    <div class="football-card">
       <div class="card-wrapper">
         <div class="card-face front">
-          <div class="card-header">{{player.club_name}}</div>
+          <div class="card-header">
+            <span class="club-name">{{player.club_name}}</span>
+            <span class="nationality">{{player.nationality_name}}</span>
+          </div>
           <div class="player-image-container">
-            <img [src]="player.player_face_url" alt="{{player.long_name}}" class="player-image" onerror="this.src='https://via.placeholder.com/150x200'">
+            <img [src]="player.player_face_url" alt="{{player.long_name}}" class="player-image" onerror="this.src='https://picsum.photos/200'">
+            <div class="player-overall" [style.background-color]="getOverallColor(player.overall)">
+              {{player.overall}}
+            </div>
           </div>
           <div class="player-info">
             <h2 class="player-name">{{player.long_name}}</h2>
             <div class="player-position">{{player.player_positions}}</div>
+            <div class="player-stats">
+              <div class="stat-item">
+                <span class="stat-label">Edad</span>
+                <span class="stat-value">{{player.age}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Altura</span>
+                <span class="stat-value">{{player.height_cm ? (player.height_cm / 100).toFixed(2) + 'm' : '-'}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Peso</span>
+                <span class="stat-value">{{player.weight_kg ? player.weight_kg + 'kg' : '-'}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Pie</span>
+                <span class="stat-value">{{player.preferred_foot || '-'}}</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-face back">
@@ -19,26 +43,59 @@
             <div class="stats-header">Estadísticas</div>
             <div class="stats-grid">
               <div class="stat-item">
-                <span class="stat-label">Edad</span>
-                <span class="stat-value">{{player.age}}</span>
+                <span class="stat-label">PAC</span>
+                <span class="stat-value">{{player.pace || '-'}}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-label">Versión</span>
-                <span class="stat-value">FIFA {{player.fifa_version}}</span>
+                <span class="stat-label">SHO</span>
+                <span class="stat-value">{{player.shooting || '-'}}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-label">Altura</span>
-                <span class="stat-value">1.70m</span>
+                <span class="stat-label">PAS</span>
+                <span class="stat-value">{{player.passing || '-'}}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-label">Peso</span>
-                <span class="stat-value">72kg</span>
+                <span class="stat-label">DRI</span>
+                <span class="stat-value">{{player.dribbling || '-'}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">DEF</span>
+                <span class="stat-value">{{player.defending || '-'}}</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">PHY</span>
+                <span class="stat-value">{{player.physic || '-'}}</span>
               </div>
             </div>
-            <div class="player-bio">
-              <p>Considerado uno de los mejores jugadores de todos los tiempos. Multiple ganador del Balón de Oro.</p>
+            <div class="special-stats">
+              <div class="special-stats-grid">
+                <div class="special-stat">
+                  <span>Finalización</span>
+                  <div class="stat-bar">
+                    <div class="stat-bar-fill" [style.width.%]="player.attacking_finishing || 0"></div>
+                  </div>
+                </div>
+                <div class="special-stat">
+                  <span>Control</span>
+                  <div class="stat-bar">
+                    <div class="stat-bar-fill" [style.width.%]="player.skill_ball_control || 0"></div>
+                  </div>
+                </div>
+                <div class="special-stat">
+                  <span>Reacciones</span>
+                  <div class="stat-bar">
+                    <div class="stat-bar-fill" [style.width.%]="player.movement_reactions || 0"></div>
+                  </div>
+                </div>
+                <div class="special-stat">
+                  <span>Fuerza de tiro</span>
+                  <div class="stat-bar">
+                    <div class="stat-bar-fill" [style.width.%]="player.power_shot_power || 0"></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-footer">Colección 2023</div>
+            <div class="card-footer">FIFA {{player.fifa_version}} ({{player.fifa_update}})</div>
           </div>
         </div>
       </div>

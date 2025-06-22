@@ -3,42 +3,97 @@ import { Player } from '../../interfaces/player';
 
 @Component({
   selector: 'app-list-players',
-  imports: [],
   templateUrl: './list-players.component.html',
-  styleUrl: './list-players.component.css'
+  styleUrls: ['./list-players.component.css']
 })
 export class ListPlayersComponent implements OnInit {
   listPlayers: Player[] = [
     {
       id: 1,
       long_name: 'Lionel Messi',
-      player_face_url: 'https://example.com/messi.jpg',
-      club_name: 'Paris Saint-Germain',
-      player_positions: 'RW',
-      fifa_version: '22',
-      age: 34
+      player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/158023.png',
+      club_name: 'Inter Miami',
+      nationality_name: 'Argentina',
+      player_positions: 'RW, CAM',
+      fifa_version: '24',
+      fifa_update: 'Latest',
+      age: 36,
+      overall: 90,
+      potential: 90,
+      value_eur: 45000000,
+      wage_eur: 20000000,
+      height_cm: 170,
+      weight_kg: 72,
+      preferred_foot: 'Left',
+      weak_foot: 4,
+      skill_moves: 4,
+      work_rate: 'Medium/Low',
+      pace: 81,
+      shooting: 89,
+      passing: 90,
+      dribbling: 94,
+      defending: 34,
+      physic: 65,
+      attacking_finishing: 92,
+      skill_ball_control: 95,
+      movement_reactions: 94,
+      mentality_composure: 96,
+      power_shot_power: 86,
+      mentality_vision: 94
     },
     {
       id: 2,
-      long_name: 'Cristiano Ronaldo',
-      player_face_url: 'https://example.com/ronaldo.jpg',
-      club_name: 'Manchester United',
-      player_positions: 'ST',
-      fifa_version: '22',
-      age: 36
-    },
-    {
-      id: 3,
-      long_name: 'Neymar Jr.',
-      player_face_url: 'https://example.com/neymar.jpg',
+      long_name: 'Kylian Mbappé',
+      player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/231747.png',
       club_name: 'Paris Saint-Germain',
-      player_positions: 'LW',
-      fifa_version: '22',
-      age: 29
+      nationality_name: 'France',
+      player_positions: 'ST, LW',
+      fifa_version: '24',
+      fifa_update: 'Latest',
+      age: 24,
+      overall: 91,
+      potential: 95,
+      value_eur: 190500000,
+      wage_eur: 230000,
+      height_cm: 182,
+      weight_kg: 75,
+      preferred_foot: 'Right',
+      weak_foot: 4,
+      skill_moves: 5,
+      work_rate: 'High/Medium',
+      pace: 97,
+      shooting: 89,
+      passing: 80,
+      dribbling: 92,
+      defending: 39,
+      physic: 77,
+      attacking_finishing: 93,
+      skill_ball_control: 92,
+      movement_reactions: 95,
+      mentality_composure: 92,
+      power_shot_power: 88,
+      mentality_vision: 84
     }
   ];
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  formatValue(value: number | undefined): string {
+    if (!value) return 'N/A';
+    if (value >= 1000000) {
+      return '€' + (value / 1000000).toFixed(1) + 'M';
+    } else if (value >= 1000) {
+      return '€' + (value / 1000).toFixed(0) + 'K';
+    }
+    return '€' + value.toString();
+  }
+
+  getOverallColor(overall: number): string {
+    if (overall >= 90) return '#ff0000'; // Rojo para 90+
+    if (overall >= 85) return '#ff8c00'; // Naranja para 85-89
+    if (overall >= 80) return '#ffd700'; // Oro para 80-84
+    return '#c0c0c0'; // Plata para menos de 80
+  }
 }
