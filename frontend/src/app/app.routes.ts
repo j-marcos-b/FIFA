@@ -7,5 +7,6 @@ export const routes: Routes = [
     { path: 'players', component: ListPlayersComponent },
     { path: 'players/:id', component: ListPlayersComponent },
     { path: 'add', component: AddEditPlayersComponent },
+    { path: 'edit/:id', component: AddEditPlayersComponent },
     { path: '**', redirectTo: '' }
 ];

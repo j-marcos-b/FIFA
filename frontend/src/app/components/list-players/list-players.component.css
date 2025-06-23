@@ -1,6 +1,6 @@
 .collection-title {
   text-align: center;
-  color:  #32FBE2;
+  color: #32FBE2;
   margin: 20px;
   font-size: 2.4rem;
   font-weight: bold;
@@ -241,4 +241,70 @@
   padding-top: 10px;
   border-top: 1px solid #ddd;
   margin-top: auto;
+}
+/* Estilos para el botón de edición */
+/* Estilos del botón (ajusta según tu diseño actual) */
+.edit-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tooltip (cartel emergente) */
+.edit-button .tooltip-text {
+  position: absolute;
+  top: -30px; /* Posición arriba del botón */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #6F42C1;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  z-index: 20;
+  transform: translateX(-50%) rotateY(180deg); /* Contrarresta la rotación*/
+  backface-visibility: visible; /* Asegura que el texto no se oculte */
+}
+
+/* Flecha del tooltip (opcional) */
+.edit-button .tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: #333 transparent transparent;
+}
+
+/* Mostrar tooltip al hacer hover en el botón */
+.edit-button:hover .tooltip-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mostrar el botón al hacer hover en la tarjeta */
+.football-card:hover .edit-button {
+  opacity: 1;
+  transform: scale(1);
 }
