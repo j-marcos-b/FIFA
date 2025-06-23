@@ -2,7 +2,7 @@
     <div class="card border-dark mb-3">
         <div class="card-header bg-dark text-white">Editar Jugador</div>
         <div class="card-body">
-            <form>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <!-- Información Básica -->
                 <div class="mb-3">
                     <label for="long_name" class="form-label">Nombre Completo</label>
@@ -145,7 +145,7 @@
 
                 <!-- Botones -->
                 <div class="d-flex justify-content-around mt-3">
-                    <button type="button" class="btn btn-dark">Cancelar</button>
+                    <button type="button" class="btn btn-dark" (click)="router.navigate(['/payers'])">Cancelar</button>
                     <button type="submit" class="btn btn-dark">Guardar Cambios</button>
                 </div>
             </form>
