@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './add-edit-players.component.css'
 })
 export class AddEditPlayersComponent {
+onSubmit() {
+throw new Error('Method not implemented.');
+}
+editPlayerForm: any;
+
+
 
 }

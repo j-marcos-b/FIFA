@@ -1,1 +1,140 @@
-<p>add-edit-players works!</p>
+<div class="d-flex justify-content-center mt-5">
+    <div class="card border-dark mb-3">
+        <div class="card-header bg-dark text-white">Editar Jugador</div>
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()">
+                <!-- Información Básica -->
+                <div class="mb-3">
+                    <label for="long_name" class="form-label">Nombre Completo</label>
+                    <input type="text" id="long_name" formControlName="long_name" class="form-control" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="age" class="form-label">Edad</label>
+                        <input type="number" id="age" formControlName="age" class="form-control" min="16" max="50"
+                            required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="overall" class="form-label">Overall</label>
+                        <input type="number" id="overall" formControlName="overall" class="form-control" min="0"
+                            max="99" required>
+                    </div>
+                </div>
+
+                <!-- Club y Nacionalidad -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="club_name" class="form-label">Club</label>
+                        <input type="text" id="club_name" formControlName="club_name" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="nationality_name" class="form-label">Nacionalidad</label>
+                        <input type="text" id="nationality_name" formControlName="nationality_name" class="form-control"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Posición y Pie Preferido -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="player_positions" class="form-label">Posición(es)</label>
+                        <input type="text" id="player_positions" formControlName="player_positions" class="form-control"
+                            placeholder="Ej: RW, CAM" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="preferred_foot" class="form-label">Pie Preferido</label>
+                        <select id="preferred_foot" formControlName="preferred_foot" class="form-select" required>
+                            <option value="Right">Derecho</option>
+                            <option value="Left">Izquierdo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Atributos Físicos -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="height_cm" class="form-label">Altura (cm)</label>
+                        <input type="number" id="height_cm" formControlName="height_cm" class="form-control" min="150"
+                            max="220" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="weight_kg" class="form-label">Peso (kg)</label>
+                        <input type="number" id="weight_kg" formControlName="weight_kg" class="form-control" min="50"
+                            max="100" required>
+                    </div>
+                </div>
+
+                <!-- Estadísticas Principales -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="pace" class="form-label">Ritmo (PAC)</label>
+                        <input type="number" id="pace" formControlName="pace" class="form-control" min="0" max="99">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="shooting" class="form-label">Tiro (SHO)</label>
+                        <input type="number" id="shooting" formControlName="shooting" class="form-control" min="0"
+                            max="99">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="passing" class="form-label">Pase (PAS)</label>
+                        <input type="number" id="passing" formControlName="passing" class="form-control" min="0"
+                            max="99">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="dribbling" class="form-label">Regate (DRI)</label>
+                        <input type="number" id="dribbling" formControlName="dribbling" class="form-control" min="0"
+                            max="99">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="defending" class="form-label">Defensa (DEF)</label>
+                        <input type="number" id="defending" formControlName="defending" class="form-control" min="0"
+                            max="99">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="physic" class="form-label">Físico (PHY)</label>
+                        <input type="number" id="physic" formControlName="physic" class="form-control" min="0" max="99">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h5 class="mb-3">Estadísticas Especiales</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="attacking_finishing" class="form-label">Finalización (0-100)</label>
+                            <input type="number" id="attacking_finishing" formControlName="attacking_finishing"
+                                class="form-control" min="0" max="100">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="skill_ball_control" class="form-label">Control (0-100)</label>
+                            <input type="number" id="skill_ball_control" formControlName="skill_ball_control"
+                                class="form-control" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="movement_reactions" class="form-label">Reacciones (0-100)</label>
+                            <input type="number" id="movement_reactions" formControlName="movement_reactions"
+                                class="form-control" min="0" max="100">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="power_shot_power" class="form-label">Fuerza de Tiro (0-100)</label>
+                            <input type="number" id="power_shot_power" formControlName="power_shot_power"
+                                class="form-control" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-around mt-3">
+                    <button type="button" class="btn btn-dark">Cancelar</button>
+                    <button type="submit" class="btn btn-dark">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
