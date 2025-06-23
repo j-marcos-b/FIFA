@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-players',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-edit-players.component.html',
   styleUrl: './add-edit-players.component.css'
 })
-export class AddEditPlayersComponent {
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-editPlayerForm: any;
+export class AddEditPlayersComponent implements OnInit {
+  form: FormGroup;
 
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      long_name: [''],
+      player_face_url: [''],
+      club_name: [''],
+    })
+  }
+
+  ngOnInit() {
+   
+  }
 
 
 }
