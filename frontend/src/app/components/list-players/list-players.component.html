@@ -1,5 +1,12 @@
 <div class="container mt-5">
   <h1 class="collection-title">Colección de Jugadores FIFA</h1>
+  <p class="collection-description">
+    Explora y descubre las estadísticas de tus jugadores favoritos. 
+    Coloca el puntero del mouse sobre el jugador para más detalles.
+  </p>
+  <div class="d-flex justify-content-end">  
+    <button class="btn btn-outline-primary" routerLink="/add">¡Agregate a tí como jugador!</button>
+  </div>
   <div class="football-cards-container">
     @for (player of listPlayers; track $index) {
     <div class="football-card">
