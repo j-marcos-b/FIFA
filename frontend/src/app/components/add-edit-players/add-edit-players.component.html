@@ -24,12 +24,14 @@
                     <div class="col-md-6 mb-3">
                         <label for="age" class="form-label">Edad</label>
                         <input type="number" id="age" formControlName="age" class="form-control" min="16" max="50"
-                            required> @if (form.get('age')?.hasError('required') && form.get('age')?.touched) {<span>Campo requerido</span>}
+                            required> @if (form.get('age')?.hasError('required') && form.get('age')?.touched)
+                        {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="overall" class="form-label">Overall</label>
                         <input type="number" id="overall" formControlName="overall" class="form-control" min="0"
-                            max="99" required> @if (form.get('overall')?.hasError('required') && form.get('overall')?.touched) {<span>Campo
+                            max="99" required> @if (form.get('overall')?.hasError('required') &&
+                        form.get('overall')?.touched) {<span>Campo
                             requerido</span>}
                     </div>
                 </div>
@@ -39,12 +41,14 @@
                     <div class="col-md-6 mb-3">
                         <label for="club_name" class="form-label">Club</label>
                         <input type="text" id="club_name" formControlName="club_name" class="form-control" required>
-                        @if (form.get('club_name')?.hasError('required') && form.get('club_name')?.touched) {<span>Campo requerido</span>}
+                        @if (form.get('club_name')?.hasError('required') && form.get('club_name')?.touched) {<span>Campo
+                            requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="nationality_name" class="form-label">Nacionalidad</label>
                         <input type="text" id="nationality_name" formControlName="nationality_name" class="form-control"
-                            required> @if (form.get('nationality_name')?.hasError('required') && form.get('nationality_name')?.touched) {<span>Campo
+                            required> @if (form.get('nationality_name')?.hasError('required') &&
+                        form.get('nationality_name')?.touched) {<span>Campo
                             requerido</span>}
 
                     </div>
@@ -55,12 +59,14 @@
                     <div class="col-md-6 mb-3">
                         <label for="player_positions" class="form-label">Posición(es)</label>
                         <input type="text" id="player_positions" formControlName="player_positions" class="form-control"
-                            placeholder="Ej: RW, CAM" required> @if (form.get('player_positions')?.hasError('required') && form.get('player_positions')?.touched)
+                            placeholder="Ej: RW, CAM" required> @if (form.get('player_positions')?.hasError('required')
+                        && form.get('player_positions')?.touched)
                         {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="preferred_foot" class="form-label">Pie Preferido</label>
-                        <select id="preferred_foot" formControlName="preferred_foot" class="form-select" required>
+                        <select formControlName="preferred_foot" class="form-select" required>
+                            <option value="" disabled selected>Seleccione...</option>
                             <option value="Right">Derecho</option>
                             <option value="Left">Izquierdo</option>
                         </select>
@@ -72,13 +78,15 @@
                     <div class="col-md-6 mb-3">
                         <label for="height_cm" class="form-label">Altura (cm)</label>
                         <input type="number" id="height_cm" formControlName="height_cm" class="form-control" min="150"
-                            max="220" required> @if (form.get('height_cm')?.hasError('required') && form.get('height_cm')?.touched) {<span>Campo
+                            max="220" required> @if (form.get('height_cm')?.hasError('required') &&
+                        form.get('height_cm')?.touched) {<span>Campo
                             requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="weight_kg" class="form-label">Peso (kg)</label>
-                        <input type="number" id="weight_kg" formControlName="weight_kg" class="form-control" min="50"
-                            max="100" required> @if (form.get('weight_kg')?.hasError('required') && form.get('weight_kg')?.touched) {<span>Campo
+                        <input type="number" id="weight_kg" formControlName="weight_kg" class="form-control" min="40"
+                            max="120" required> @if (form.get('weight_kg')?.hasError('required') &&
+                        form.get('weight_kg')?.touched) {<span>Campo
                             requerido</span>}
                     </div>
                 </div>
@@ -100,8 +108,10 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="fifa_version" class="form-label">Versión FIFA</label>
-                        <input type="text" id="fifa_version" formControlName="fifa_version" class="form-control"
-                            min="15" max="23"> @if (form.get('fifa_version')?.hasError('required') && form.get('fifa_version')?.touched) {<span>Campo
+                        <input type="text" id="fifa_version" formControlName="fifa_version" class="form-control" min="0" max="99"
+                            placeholder="15 a 23" maxlength="2"> @if (form.get('fifa_version')?.hasError('required')
+                        &&
+                        form.get('fifa_version')?.touched) {<span>Campo
                             requerido</span>}
                     </div>
                 </div>
@@ -111,17 +121,20 @@
                     <div class="col-md-4 mb-3">
                         <label for="pace" class="form-label">Ritmo (PAC)</label>
                         <input type="number" id="pace" formControlName="pace" class="form-control" min="0" max="99">
-                        @if (form.get('pace')?.hasError('required') && form.get('pace')?.touched) {<span>Campo requerido</span>}
+                        @if (form.get('pace')?.hasError('required') && form.get('pace')?.touched) {<span>Campo
+                            requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="shooting" class="form-label">Tiro (SHO)</label>
                         <input type="number" id="shooting" formControlName="shooting" class="form-control" min="0"
-                            max="99"> @if (form.get('shooting')?.hasError('required') && form.get('shooting')?.touched) {<span>Campo requerido</span>}
+                            max="99"> @if (form.get('shooting')?.hasError('required') && form.get('shooting')?.touched)
+                        {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="passing" class="form-label">Pase (PAS)</label>
                         <input type="number" id="passing" formControlName="passing" class="form-control" min="0"
-                            max="99"> @if (form.get('passing')?.hasError('required') && form.get('passing')?.touched) {<span>Campo requerido</span>}
+                            max="99"> @if (form.get('passing')?.hasError('required') && form.get('passing')?.touched)
+                        {<span>Campo requerido</span>}
                     </div>
                 </div>
 
@@ -129,17 +142,20 @@
                     <div class="col-md-4 mb-3">
                         <label for="dribbling" class="form-label">Regate (DRI)</label>
                         <input type="number" id="dribbling" formControlName="dribbling" class="form-control" min="0"
-                            max="99"> @if (form.get('dribbling')?.hasError('required') && form.get('dribbling')?.touched) {<span>Campo requerido</span>}
+                            max="99"> @if (form.get('dribbling')?.hasError('required') &&
+                        form.get('dribbling')?.touched) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="defending" class="form-label">Defensa (DEF)</label>
                         <input type="number" id="defending" formControlName="defending" class="form-control" min="0"
-                            max="99"> @if (form.get('defending')?.hasError('required') && form.get('defending')?.touched) {<span>Campo requerido</span>}
+                            max="99"> @if (form.get('defending')?.hasError('required') &&
+                        form.get('defending')?.touched) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="physic" class="form-label">Físico (PHY)</label>
                         <input type="number" id="physic" formControlName="physic" class="form-control" min="0" max="99">
-                        @if (form.get('physic')?.hasError('required') && form.get('physic')?.touched) {<span>Campo requerido</span>}
+                        @if (form.get('physic')?.hasError('required') && form.get('physic')?.touched) {<span>Campo
+                            requerido</span>}
                     </div>
                 </div>
 
@@ -151,13 +167,15 @@
                             <label for="attacking_finishing" class="form-label">Finalización (0-100)</label>
                             <input type="number" id="attacking_finishing" formControlName="attacking_finishing"
                                 class="form-control" min="0" max="100"> @if
-                            (form.get('attacking_finishing')?.hasError('required') && form.get('attacking_finishing')?.touched) {<span>Campo requerido</span>}
+                            (form.get('attacking_finishing')?.hasError('required') &&
+                            form.get('attacking_finishing')?.touched) {<span>Campo requerido</span>}
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="skill_ball_control" class="form-label">Control (0-100)</label>
                             <input type="number" id="skill_ball_control" formControlName="skill_ball_control"
                                 class="form-control" min="0" max="100"> @if
-                            (form.get('skill_ball_control')?.hasError('required') && form.get('skill_ball_control')?.touched) {<span>Campo requerido</span>}
+                            (form.get('skill_ball_control')?.hasError('required') &&
+                            form.get('skill_ball_control')?.touched) {<span>Campo requerido</span>}
                         </div>
                     </div>
 
@@ -166,13 +184,15 @@
                             <label for="movement_reactions" class="form-label">Reacciones (0-100)</label>
                             <input type="number" id="movement_reactions" formControlName="movement_reactions"
                                 class="form-control" min="0" max="100"> @if
-                            (form.get('movement_reactions')?.hasError('required') && form.get('movement_reactions')?.touched) {<span>Campo requerido</span>}
+                            (form.get('movement_reactions')?.hasError('required') &&
+                            form.get('movement_reactions')?.touched) {<span>Campo requerido</span>}
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="power_shot_power" class="form-label">Fuerza de Tiro (0-100)</label>
                             <input type="number" id="power_shot_power" formControlName="power_shot_power"
                                 class="form-control" min="0" max="100"> @if
-                            (form.get('power_shot_power')?.hasError('required') && form.get('power_shot_power')?.touched) {<span>Campo requerido</span>}
+                            (form.get('power_shot_power')?.hasError('required') &&
+                            form.get('power_shot_power')?.touched) {<span>Campo requerido</span>}
                         </div>
                     </div>
                 </div>

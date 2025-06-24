@@ -6,7 +6,6 @@ export interface Player {
   nationality_name?: string;
   player_positions: string;
   fifa_version: string;
-  fifa_update: string;
   age: number;
   overall: number;
   height_cm?: number;

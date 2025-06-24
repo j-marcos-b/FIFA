@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Player } from '../../interfaces/player';
-import { JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-players',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-edit-players.component.html',
   styleUrl: './add-edit-players.component.css'
 })
@@ -22,27 +22,26 @@ export class AddEditPlayersComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       long_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]],
-      age: [null, [Validators.required, Validators.min(16), Validators.max(50)]],
-      overall: [null, [Validators.required, Validators.min(40), Validators.max(99)]],
-      club_name: ['', [Validators.required, Validators.maxLength(50)]],
-      nationality_name: ['', [Validators.required, Validators.maxLength(50)]],
-      player_positions: ['', [Validators.required, Validators.maxLength(50)]],
-      preferred_foot: ['', Validators.pattern(/^(Right|Left)$/)],
-      height_cm: [null, [Validators.required, Validators.min(150), Validators.max(220)]],
-      weight_kg: [null, [Validators.required, Validators.min(40), Validators.max(120)]],
+      age: ['', [Validators.required, Validators.min(16), Validators.max(50)]],
+      overall: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      club_name: ['', [Validators.required]],
+      nationality_name: ['', [Validators.required]],
+      player_positions: ['', [Validators.required]],
+      preferred_foot: ['', [Validators.required]],
+      height_cm: ['', [Validators.required, Validators.min(150), Validators.max(220)]],
+      weight_kg: ['', [Validators.required, Validators.min(40), Validators.max(120)]],
       player_face_url: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)([\w\-]+\.)+[\w\-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/)]],
-      fifa_version: ['', [Validators.required, Validators.pattern(/^\d{2}$/)]],
-      fifa_update: ['Latest', Validators.required],
-      pace: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      shooting: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      passing: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      dribbling: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      defending: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      physic: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      attacking_finishing: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
-      skill_ball_control: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
-      movement_reactions: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
-      power_shot_power: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
+      fifa_version: ['', [Validators.required, Validators.min(15), Validators.max(23)]],
+      pace: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      shooting: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      passing: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      dribbling: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      defending: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      physic: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
+      attacking_finishing: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      skill_ball_control: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      movement_reactions: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      power_shot_power: ['', [Validators.required, Validators.min(0), Validators.max(100)]]
     });
 
     this.listPlayers = [
@@ -54,7 +53,6 @@ export class AddEditPlayersComponent implements OnInit {
         nationality_name: 'Argentina',
         player_positions: 'RW, CAM',
         fifa_version: '24',
-        fifa_update: 'Latest',
         age: 36,
         overall: 90,
         height_cm: 170,
@@ -79,32 +77,6 @@ export class AddEditPlayersComponent implements OnInit {
         nationality_name: 'France',
         player_positions: 'ST, LW',
         fifa_version: '24',
-        fifa_update: 'Latest',
-        age: 24,
-        overall: 91,
-        height_cm: 182,
-        weight_kg: 75,
-        preferred_foot: 'Right',
-        pace: 97,
-        shooting: 89,
-        passing: 80,
-        dribbling: 92,
-        defending: 39,
-        physic: 77,
-        attacking_finishing: 93,
-        skill_ball_control: 92,
-        movement_reactions: 95,
-        power_shot_power: 88,
-      },
-      {
-        id: 2,
-        long_name: 'Kylian Mbappé',
-        player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/231747.png',
-        club_name: 'Paris Saint-Germain',
-        nationality_name: 'France',
-        player_positions: 'ST, LW',
-        fifa_version: '24',
-        fifa_update: 'Latest',
         age: 24,
         overall: 91,
         height_cm: 182,
@@ -138,16 +110,17 @@ export class AddEditPlayersComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
+if (this.form.valid) { // Generar ID automático para nuevos jugadores
+    const newId = this.playerId ? this.playerId : (Math.max(0, ...this.listPlayers.map(p => p.id))) + 1;
+
       const player: Player = {
-        id: this.form.value.id,
+        id: newId, // Usar el ID existente o generar uno nuevo
         long_name: this.form.value.long_name,
         player_face_url: this.form.value.player_face_url,
         club_name: this.form.value.club_name,
         nationality_name: this.form.value.nationality_name,
         player_positions: this.form.value.player_positions,
         fifa_version: this.form.value.fifa_version,
-        fifa_update: this.form.value.fifa_update,
         age: this.form.value.age,
         overall: this.form.value.overall,
         height_cm: this.form.value.height_cm,
