@@ -4,9 +4,9 @@ class server {
     private app = express();
     private port: string;
 
-    constructor(port: string) {
+    constructor() {
+        this.port = process.env.PORT || '3000';
         this.app = express();
-        this.port = '3000';
         this.listen();
     }
 

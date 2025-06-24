@@ -1,3 +1,7 @@
 import Server from './models/server';
+import dotenv from 'dotenv';
 
-const server = new Server('3000');
+//Variables de entorno
+dotenv.config();
+
+const server = new Server();
