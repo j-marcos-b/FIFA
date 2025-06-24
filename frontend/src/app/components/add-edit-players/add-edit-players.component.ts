@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Player } from '../../interfaces/player';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-players',
@@ -17,33 +18,33 @@ export class AddEditPlayersComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    public router: Router
+    public router: Router,
   ) {
     this.form = this.fb.group({
-      long_name: [''],
-      age: [''],
-      overall: [''],
-      club_name: [''],
-      nationality_name: [''],
-      player_positions: [''],
-      preferred_foot: ['Right'],
-      height_cm: [''],
-      weight_kg: [''],
-      player_face_url: [''],
-      fifa_version: [''],
-      pace: [''],
-      shooting: [''],
-      passing: [''],
-      dribbling: [''],
-      defending: [''],
-      physic: [''],
-      attacking_finishing: [''],
-      skill_ball_control: [''],
-      movement_reactions: [''],
-      power_shot_power: ['']
+      long_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]],
+      age: [null, [Validators.required, Validators.min(16), Validators.max(50)]],
+      overall: [null, [Validators.required, Validators.min(40), Validators.max(99)]],
+      club_name: ['', [Validators.required, Validators.maxLength(50)]],
+      nationality_name: ['', [Validators.required, Validators.maxLength(50)]],
+      player_positions: ['', [Validators.required, Validators.maxLength(50)]],
+      preferred_foot: ['Right', Validators.pattern(/^(Right|Left)$/)],
+      height_cm: [null, [Validators.required, Validators.min(150), Validators.max(220)]],
+      weight_kg: [null, [Validators.required, Validators.min(40), Validators.max(120)]],
+      player_face_url: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)([\w\-]+\.)+[\w\-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/)]],
+      fifa_version: ['24', [Validators.required, Validators.pattern(/^\d{2}$/)]],
+      fifa_update: ['Latest', Validators.required],
+      pace: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      shooting: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      passing: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      dribbling: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      defending: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      physic: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      attacking_finishing: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
+      skill_ball_control: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
+      movement_reactions: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
+      power_shot_power: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
     });
 
-    // Esto es temporal - en una app real deberías obtener los jugadores de un servicio
     this.listPlayers = [
       {
         id: 1,
@@ -78,13 +79,45 @@ export class AddEditPlayersComponent implements OnInit {
         power_shot_power: 86,
         mentality_vision: 94
       },
-      // ... otros jugadores
+      {
+        id: 2,
+        long_name: 'Kylian Mbappé',
+        player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/231747.png',
+        club_name: 'Paris Saint-Germain',
+        nationality_name: 'France',
+        player_positions: 'ST, LW',
+        fifa_version: '24',
+        fifa_update: 'Latest',
+        age: 24,
+        overall: 91,
+        potential: 95,
+        value_eur: 190500000,
+        wage_eur: 230000,
+        height_cm: 182,
+        weight_kg: 75,
+        preferred_foot: 'Right',
+        weak_foot: 4,
+        skill_moves: 5,
+        work_rate: 'High/Medium',
+        pace: 97,
+        shooting: 89,
+        passing: 80,
+        dribbling: 92,
+        defending: 39,
+        physic: 77,
+        attacking_finishing: 93,
+        skill_ball_control: 92,
+        movement_reactions: 95,
+        mentality_composure: 92,
+        power_shot_power: 88,
+        mentality_vision: 84
+      }
     ];
   }
 
   ngOnInit() {
     this.playerId = Number(this.route.snapshot.paramMap.get('id'));
-    
+
     if (this.playerId) {
       const playerToEdit = this.listPlayers.find(p => p.id === this.playerId);
       if (playerToEdit) {

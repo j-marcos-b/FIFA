@@ -7,18 +7,30 @@
                 <div class="mb-3">
                     <label for="long_name" class="form-label">Nombre Completo</label>
                     <input type="text" id="long_name" formControlName="long_name" class="form-control" required>
+                    @if (form.get('long_name')?.touched || form.get('long_name')?.dirty) {
+                    @if (form.get('long_name')?.hasError('required')) {
+                    <span class="text-danger">Campo requerido</span>
+                    }
+                    @if (form.get('long_name')?.hasError('minlength')) {
+                    <span class="text-danger">Mínimo 3 caracteres</span>
+                    }
+                    @if (form.get('long_name')?.hasError('maxlength')) {
+                    <span class="text-danger">Máximo 80 caracteres</span>
+                    }
+                    }
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="age" class="form-label">Edad</label>
                         <input type="number" id="age" formControlName="age" class="form-control" min="16" max="50"
-                            required>
+                            required> @if (form.get('age')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="overall" class="form-label">Overall</label>
                         <input type="number" id="overall" formControlName="overall" class="form-control" min="0"
-                            max="99" required>
+                            max="99" required> @if (form.get('overall')?.hasError('required')) {<span>Campo
+                            requerido</span>}
                     </div>
                 </div>
 
@@ -27,11 +39,14 @@
                     <div class="col-md-6 mb-3">
                         <label for="club_name" class="form-label">Club</label>
                         <input type="text" id="club_name" formControlName="club_name" class="form-control" required>
+                        @if (form.get('club_name')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="nationality_name" class="form-label">Nacionalidad</label>
                         <input type="text" id="nationality_name" formControlName="nationality_name" class="form-control"
-                            required>
+                            required> @if (form.get('nationality_name')?.hasError('required')) {<span>Campo
+                            requerido</span>}
+
                     </div>
                 </div>
 
@@ -40,7 +55,8 @@
                     <div class="col-md-6 mb-3">
                         <label for="player_positions" class="form-label">Posición(es)</label>
                         <input type="text" id="player_positions" formControlName="player_positions" class="form-control"
-                            placeholder="Ej: RW, CAM" required>
+                            placeholder="Ej: RW, CAM" required> @if (form.get('player_positions')?.hasError('required'))
+                        {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="preferred_foot" class="form-label">Pie Preferido</label>
@@ -56,12 +72,14 @@
                     <div class="col-md-6 mb-3">
                         <label for="height_cm" class="form-label">Altura (cm)</label>
                         <input type="number" id="height_cm" formControlName="height_cm" class="form-control" min="150"
-                            max="220" required>
+                            max="220" required> @if (form.get('height_cm')?.hasError('required')) {<span>Campo
+                            requerido</span>}
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="weight_kg" class="form-label">Peso (kg)</label>
                         <input type="number" id="weight_kg" formControlName="weight_kg" class="form-control" min="50"
-                            max="100" required>
+                            max="100" required> @if (form.get('weight_kg')?.hasError('required')) {<span>Campo
+                            requerido</span>}
                     </div>
                 </div>
 
@@ -70,11 +88,21 @@
                         <label for="player_face_url" class="form-label">URL de la Imagen</label>
                         <input type="url" id="player_face_url" formControlName="player_face_url" class="form-control"
                             placeholder="https://ejemplo.com/imagen.jpg">
+                        @if (form.get('player_face_url')?.errors && (form.get('player_face_url')?.dirty ||
+                        form.get('player_face_url')?.touched)) {
+                        @if (form.get('player_face_url')?.hasError('required')) {
+                        <span>Campo requerido</span>
+                        }
+                        @if (form.get('player_face_url')?.hasError('pattern')) {
+                        <span>URL inválida</span>
+                        }
+                        }
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="fifa_version" class="form-label">Versión FIFA</label>
-                        <input type="number" id="fifa_version" formControlName="fifa_version" class="form-control"
-                            min="15" max="23">
+                        <input type="text" id="fifa_version" formControlName="fifa_version" class="form-control"
+                            min="15" max="23"> @if (form.get('fifa_version')?.hasError('required')) {<span>Campo
+                            requerido</span>}
                     </div>
                 </div>
 
@@ -83,16 +111,17 @@
                     <div class="col-md-4 mb-3">
                         <label for="pace" class="form-label">Ritmo (PAC)</label>
                         <input type="number" id="pace" formControlName="pace" class="form-control" min="0" max="99">
+                        @if (form.get('pace')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="shooting" class="form-label">Tiro (SHO)</label>
                         <input type="number" id="shooting" formControlName="shooting" class="form-control" min="0"
-                            max="99">
+                            max="99"> @if (form.get('shooting')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="passing" class="form-label">Pase (PAS)</label>
                         <input type="number" id="passing" formControlName="passing" class="form-control" min="0"
-                            max="99">
+                            max="99"> @if (form.get('passing')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                 </div>
 
@@ -100,16 +129,17 @@
                     <div class="col-md-4 mb-3">
                         <label for="dribbling" class="form-label">Regate (DRI)</label>
                         <input type="number" id="dribbling" formControlName="dribbling" class="form-control" min="0"
-                            max="99">
+                            max="99"> @if (form.get('dribbling')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="defending" class="form-label">Defensa (DEF)</label>
                         <input type="number" id="defending" formControlName="defending" class="form-control" min="0"
-                            max="99">
+                            max="99"> @if (form.get('defending')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="physic" class="form-label">Físico (PHY)</label>
                         <input type="number" id="physic" formControlName="physic" class="form-control" min="0" max="99">
+                        @if (form.get('physic')?.hasError('required')) {<span>Campo requerido</span>}
                     </div>
                 </div>
 
@@ -120,12 +150,14 @@
                         <div class="col-md-6 mb-3">
                             <label for="attacking_finishing" class="form-label">Finalización (0-100)</label>
                             <input type="number" id="attacking_finishing" formControlName="attacking_finishing"
-                                class="form-control" min="0" max="100">
+                                class="form-control" min="0" max="100"> @if
+                            (form.get('attacking_finishing')?.hasError('required')) {<span>Campo requerido</span>}
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="skill_ball_control" class="form-label">Control (0-100)</label>
                             <input type="number" id="skill_ball_control" formControlName="skill_ball_control"
-                                class="form-control" min="0" max="100">
+                                class="form-control" min="0" max="100"> @if
+                            (form.get('skill_ball_control')?.hasError('required')) {<span>Campo requerido</span>}
                         </div>
                     </div>
 
@@ -133,12 +165,14 @@
                         <div class="col-md-6 mb-3">
                             <label for="movement_reactions" class="form-label">Reacciones (0-100)</label>
                             <input type="number" id="movement_reactions" formControlName="movement_reactions"
-                                class="form-control" min="0" max="100">
+                                class="form-control" min="0" max="100"> @if
+                            (form.get('movement_reactions')?.hasError('required')) {<span>Campo requerido</span>}
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="power_shot_power" class="form-label">Fuerza de Tiro (0-100)</label>
                             <input type="number" id="power_shot_power" formControlName="power_shot_power"
-                                class="form-control" min="0" max="100">
+                                class="form-control" min="0" max="100"> @if
+                            (form.get('power_shot_power')?.hasError('required')) {<span>Campo requerido</span>}
                         </div>
                     </div>
                 </div>
@@ -146,7 +180,7 @@
                 <!-- Botones -->
                 <div class="d-flex justify-content-around mt-3">
                     <button type="button" class="btn btn-dark" (click)="router.navigate(['/payers'])">Cancelar</button>
-                    <button type="submit" class="btn btn-dark">Guardar Cambios</button>
+                    <button [disabled]="form.invalid" type="submit" class="btn btn-dark">Guardar</button>
                 </div>
             </form>
         </div>
