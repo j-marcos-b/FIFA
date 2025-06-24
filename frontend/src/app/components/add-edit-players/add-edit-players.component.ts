@@ -27,11 +27,11 @@ export class AddEditPlayersComponent implements OnInit {
       club_name: ['', [Validators.required, Validators.maxLength(50)]],
       nationality_name: ['', [Validators.required, Validators.maxLength(50)]],
       player_positions: ['', [Validators.required, Validators.maxLength(50)]],
-      preferred_foot: ['Right', Validators.pattern(/^(Right|Left)$/)],
+      preferred_foot: ['', Validators.pattern(/^(Right|Left)$/)],
       height_cm: [null, [Validators.required, Validators.min(150), Validators.max(220)]],
       weight_kg: [null, [Validators.required, Validators.min(40), Validators.max(120)]],
       player_face_url: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)([\w\-]+\.)+[\w\-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/)]],
-      fifa_version: ['24', [Validators.required, Validators.pattern(/^\d{2}$/)]],
+      fifa_version: ['', [Validators.required, Validators.pattern(/^\d{2}$/)]],
       fifa_update: ['Latest', Validators.required],
       pace: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
       shooting: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
@@ -57,15 +57,9 @@ export class AddEditPlayersComponent implements OnInit {
         fifa_update: 'Latest',
         age: 36,
         overall: 90,
-        potential: 90,
-        value_eur: 45000000,
-        wage_eur: 20000000,
         height_cm: 170,
         weight_kg: 72,
         preferred_foot: 'Left',
-        weak_foot: 4,
-        skill_moves: 4,
-        work_rate: 'Medium/Low',
         pace: 81,
         shooting: 89,
         passing: 90,
@@ -75,9 +69,7 @@ export class AddEditPlayersComponent implements OnInit {
         attacking_finishing: 92,
         skill_ball_control: 95,
         movement_reactions: 94,
-        mentality_composure: 96,
         power_shot_power: 86,
-        mentality_vision: 94
       },
       {
         id: 2,
@@ -90,15 +82,9 @@ export class AddEditPlayersComponent implements OnInit {
         fifa_update: 'Latest',
         age: 24,
         overall: 91,
-        potential: 95,
-        value_eur: 190500000,
-        wage_eur: 230000,
         height_cm: 182,
         weight_kg: 75,
         preferred_foot: 'Right',
-        weak_foot: 4,
-        skill_moves: 5,
-        work_rate: 'High/Medium',
         pace: 97,
         shooting: 89,
         passing: 80,
@@ -108,13 +94,38 @@ export class AddEditPlayersComponent implements OnInit {
         attacking_finishing: 93,
         skill_ball_control: 92,
         movement_reactions: 95,
-        mentality_composure: 92,
         power_shot_power: 88,
-        mentality_vision: 84
+      },
+      {
+        id: 2,
+        long_name: 'Kylian Mbappé',
+        player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/231747.png',
+        club_name: 'Paris Saint-Germain',
+        nationality_name: 'France',
+        player_positions: 'ST, LW',
+        fifa_version: '24',
+        fifa_update: 'Latest',
+        age: 24,
+        overall: 91,
+        height_cm: 182,
+        weight_kg: 75,
+        preferred_foot: 'Right',
+        pace: 97,
+        shooting: 89,
+        passing: 80,
+        dribbling: 92,
+        defending: 39,
+        physic: 77,
+        attacking_finishing: 93,
+        skill_ball_control: 92,
+        movement_reactions: 95,
+        power_shot_power: 88,
       }
     ];
   }
 
+  //Carga el jugador a editar si existe
+  //Si no existe, el formulario estará vacío para agregar un nuevo jugador
   ngOnInit() {
     this.playerId = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -128,9 +139,41 @@ export class AddEditPlayersComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      // Aquí iría la lógica para guardar los cambios
-      console.log('Formulario válido', this.form.value);
+      const player: Player = {
+        id: this.form.value.id,
+        long_name: this.form.value.long_name,
+        player_face_url: this.form.value.player_face_url,
+        club_name: this.form.value.club_name,
+        nationality_name: this.form.value.nationality_name,
+        player_positions: this.form.value.player_positions,
+        fifa_version: this.form.value.fifa_version,
+        fifa_update: this.form.value.fifa_update,
+        age: this.form.value.age,
+        overall: this.form.value.overall,
+        height_cm: this.form.value.height_cm,
+        weight_kg: this.form.value.weight_kg,
+        preferred_foot: this.form.value.preferred_foot,
+
+        // Estadísticas principales
+        pace: this.form.value.pace,
+        shooting: this.form.value.shooting,
+        passing: this.form.value.passing,
+        dribbling: this.form.value.dribbling,
+        defending: this.form.value.defending,
+        physic: this.form.value.physic,
+
+        // Estadísticas específicas relevantes
+        attacking_finishing: this.form.value.attacking_finishing,
+        skill_ball_control: this.form.value.skill_ball_control,
+        movement_reactions: this.form.value.movement_reactions,
+        power_shot_power: this.form.value.power_shot_power
+      };
+
+      // Aquí iría la lógica para guardar los cambios (por ejemplo, llamar a un servicio)
+      // this.playerService.savePlayer(player);
+
       this.router.navigate(['/list']);
+      console.log(player)
     }
   }
 }

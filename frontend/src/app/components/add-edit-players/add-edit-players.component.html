@@ -101,7 +101,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="fifa_version" class="form-label">Versión FIFA</label>
                         <input type="text" id="fifa_version" formControlName="fifa_version" class="form-control"
-                            min="15" max="23"> @if (form.get('fifa_version')?.hasError('required')) {<span>Campo
+                            min="15" max="23"> @if (form.get('fifa_version')?.hasError('required') && form.get('fifa_version')?.touched) {<span>Campo
                             requerido</span>}
                     </div>
                 </div>
@@ -179,7 +179,7 @@
 
                 <!-- Botones -->
                 <div class="d-flex justify-content-around mt-3">
-                    <button type="button" class="btn btn-dark" (click)="router.navigate(['/payers'])">Cancelar</button>
+                    <button type="button" class="btn btn-dark" (click)="router.navigate(['/players'])">Cancelar</button>
                     <button [disabled]="form.invalid" type="submit" class="btn btn-dark">Guardar</button>
                 </div>
             </form>

@@ -9,15 +9,9 @@ export interface Player {
   fifa_update: string;
   age: number;
   overall: number;
-  potential: number;
-  value_eur?: number;
-  wage_eur?: number;
   height_cm?: number;
   weight_kg?: number;
   preferred_foot?: string;
-  weak_foot?: number;
-  skill_moves?: number;
-  work_rate?: string;
   
   // Estadísticas principales
   pace?: number;
@@ -31,7 +25,5 @@ export interface Player {
   attacking_finishing?: number;
   skill_ball_control?: number;
   movement_reactions?: number;
-  mentality_composure?: number;
   power_shot_power?: number;
-  mentality_vision?: number;
 }
