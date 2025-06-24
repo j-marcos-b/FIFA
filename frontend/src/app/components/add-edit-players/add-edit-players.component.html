@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center mt-5">
-    <div class="card border-dark mb-3">
-        <div class="card-header bg-dark text-white">Editar Jugador</div>
+    <div class="card text-white bg-dark mb-3">
+        <div class="card-header text-white">Editar Jugador</div>
         <div class="card-body">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <!-- Información Básica -->
@@ -199,8 +199,8 @@
 
                 <!-- Botones -->
                 <div class="d-flex justify-content-around mt-3">
-                    <button type="button" class="btn btn-dark" (click)="router.navigate(['/players'])">Cancelar</button>
-                    <button [disabled]="form.invalid" type="submit" class="btn btn-dark">Guardar</button>
+                    <button type="button" class="btn btn-danger" (click)="router.navigate(['/players'])">Cancelar</button>
+                    <button [disabled]="form.invalid" type="submit" class="btn btn-info">Guardar</button>
                 </div>
             </form>
         </div>
