@@ -3,32 +3,65 @@
 Thumbs.db
 
 # Dependencias (global)
-**/node_modules/   # <- El doble ** cubre node_modules en cualquier subcarpeta
+/**/node_modules/ 
 
-# Entornos
+# Variables de entorno
 .env
 .env.*
-!.env.example      # <- Excepción: permite el archivo .env.example
+!.env.example
 
-# Logs y temporales
+# Logs y archivos temporales
 *.log
 *.tmp
 *.bak
-
-# Backend
-/dist
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backend (Node.js, Express, Nest, etc.)
+/server/node_modules/
+/server/.env
+/server/.env.*
+!/server/.env.example
+
+/server/logs/
+/server/debug.log
+/server/pids/
+/server/tmp/
+/server/temp/
+/server/.cache/
+/server/.eslintcache
+
+/server/coverage/
+/server/nyc_output/
+
+/server/dist/
+/server/build/
+/server/out/
+
+# Archivos de base de datos
+/server/database.sqlite
+/server/database.sqlite3
+/server/db.sqlite*
+/server/database/data/
+
+# TypeScript
+/server/tsconfig.tsbuildinfo
 
 # Frontend (Angular)
-/dist
-/.angular
-/.cache
+/dist/
+/.angular/
+/.cache/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/
+/frontend/.cache/
 
 # Docker
 docker-compose.override.yml
 /database/data
 
-# IDEs
+# IDEs y herramientas de desarrollo
 .idea/
 .vscode/
 *.sln
