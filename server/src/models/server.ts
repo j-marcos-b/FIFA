@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import routePlayer from '../routes/player-routes';
 import db from '../db/connection';
 
@@ -26,11 +27,13 @@ class server {
             res.json({msn:'Servidor corriendo'});
         });
 
-        this.app.use('/api/player', routePlayer);
+        this.app.use('/api/players', routePlayer);
     }
 
     middleware() {
         this.app.use(express.json());
+        /* cors */
+        this.app.use(cors());
     }
 
     async debConnect() {

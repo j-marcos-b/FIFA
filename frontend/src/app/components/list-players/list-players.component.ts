@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../../interfaces/player';
 import { RouterLink } from '@angular/router';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-list-players',
@@ -60,9 +61,18 @@ export class ListPlayersComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(private _playerService: PlayerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getListPlayers();
+  }
+
+  getListPlayers(): void {
+    this._playerService.getListPlayers().subscribe((data) => {
+      console.log('List of players:', data);
+    })
+  }
+    
 
   formatValue(value: number | undefined): string {
     if (!value) return 'N/A';
