@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import routePlayer from '../routes/player-routes';
+import db from '../db/connection';
 
 class server {
     private app = express();
@@ -11,6 +12,7 @@ class server {
         this.listen();
         this.middleware();
         this.routes();
+        this.debConnect();
     }
 
     listen() {
@@ -29,6 +31,16 @@ class server {
 
     middleware() {
         this.app.use(express.json());
+    }
+
+    async debConnect() {
+        try {
+            await db.authenticate();
+            console.log('Base de datos conectada');
+        } catch (error) {
+            console.error('Error al conectar a la base de datos:', error);
+        }
+        
     }
 }
 
