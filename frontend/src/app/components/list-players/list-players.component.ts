@@ -10,56 +10,7 @@ import { PlayerService } from '../../services/player.service';
   styleUrls: ['./list-players.component.css']
 })
 export class ListPlayersComponent implements OnInit {
-  listPlayers: Player[] = [
-    {
-      id: 1,
-      long_name: 'Lionel Messi',
-      player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/158023.png',
-      club_name: 'Inter Miami',
-      nationality_name: 'Argentina',
-      player_positions: 'RW, CAM',
-      fifa_version: '23',
-      age: 36,
-      overall: 90,
-      height_cm: 170,
-      weight_kg: 72,
-      preferred_foot: 'Left',
-      pace: 81,
-      shooting: 89,
-      passing: 90,
-      dribbling: 94,
-      defending: 34,
-      physic: 65,
-      attacking_finishing: 92,
-      skill_ball_control: 95,
-      movement_reactions: 94,
-      power_shot_power: 86,
-    },
-    {
-      id: 2,
-      long_name: 'Kylian Mbappé',
-      player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/231747.png',
-      club_name: 'Paris Saint-Germain',
-      nationality_name: 'France',
-      player_positions: 'ST, LW',
-      fifa_version: '23',
-      age: 24,
-      overall: 91,
-      height_cm: 182,
-      weight_kg: 75,
-      preferred_foot: 'Right',
-      pace: 97,
-      shooting: 89,
-      passing: 80,
-      dribbling: 92,
-      defending: 39,
-      physic: 77,
-      attacking_finishing: 93,
-      skill_ball_control: 92,
-      movement_reactions: 95,
-      power_shot_power: 88,
-    }
-  ];
+  listPlayers: Player[] = [];
 
   constructor(private _playerService: PlayerService) {}
 
@@ -69,7 +20,7 @@ export class ListPlayersComponent implements OnInit {
 
   getListPlayers(): void {
     this._playerService.getListPlayers().subscribe((data) => {
-      console.log('List of players:', data);
+      this.listPlayers = data;
     })
   }
     

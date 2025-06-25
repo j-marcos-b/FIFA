@@ -126,14 +126,14 @@
 }
 
 .player-name {
-  font-size: 18px;
+  font-size: 16px;
   margin: 5px 0;
   color: #333;
   font-weight: bold;
 }
 
 .player-position {
-  font-size: 14px;
+  font-size: 12px;
   color: #1e3c72;
   font-weight: bold;
   margin-bottom: 10px;

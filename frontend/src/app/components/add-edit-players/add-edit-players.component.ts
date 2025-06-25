@@ -1,8 +1,10 @@
+// add-edit-players.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Player } from '../../interfaces/player';
 import { CommonModule } from '@angular/common';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-add-edit-players',
@@ -13,12 +15,13 @@ import { CommonModule } from '@angular/common';
 export class AddEditPlayersComponent implements OnInit {
   form: FormGroup;
   playerId: number | null = null;
-  listPlayers: Player[] = []; // Aquí deberías obtener tus jugadores, quizás de un servicio
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     public router: Router,
+    private _playerService: PlayerService // Inyectar el servicio
   ) {
     this.form = this.fb.group({
       long_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]],
@@ -43,110 +46,41 @@ export class AddEditPlayersComponent implements OnInit {
       movement_reactions: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       power_shot_power: ['', [Validators.required, Validators.min(0), Validators.max(100)]]
     });
-
-    this.listPlayers = [
-      {
-        id: 1,
-        long_name: 'Lionel Messi',
-        player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/158023.png',
-        club_name: 'Inter Miami',
-        nationality_name: 'Argentina',
-        player_positions: 'RW, CAM',
-        fifa_version: '23',
-        age: 36,
-        overall: 90,
-        height_cm: 170,
-        weight_kg: 72,
-        preferred_foot: 'Left',
-        pace: 81,
-        shooting: 89,
-        passing: 90,
-        dribbling: 94,
-        defending: 34,
-        physic: 65,
-        attacking_finishing: 92,
-        skill_ball_control: 95,
-        movement_reactions: 94,
-        power_shot_power: 86,
-      },
-      {
-        id: 2,
-        long_name: 'Kylian Mbappé',
-        player_face_url: 'https://cdn.futbin.com/content/fifa24/img/players/231747.png',
-        club_name: 'Paris Saint-Germain',
-        nationality_name: 'France',
-        player_positions: 'ST, LW',
-        fifa_version: '23',
-        age: 24,
-        overall: 91,
-        height_cm: 182,
-        weight_kg: 75,
-        preferred_foot: 'Right',
-        pace: 97,
-        shooting: 89,
-        passing: 80,
-        dribbling: 92,
-        defending: 39,
-        physic: 77,
-        attacking_finishing: 93,
-        skill_ball_control: 92,
-        movement_reactions: 95,
-        power_shot_power: 88,
-      }
-    ];
   }
 
-  //Carga el jugador a editar si existe
-  //Si no existe, el formulario estará vacío para agregar un nuevo jugador
   ngOnInit() {
     this.playerId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.playerId) {
-      const playerToEdit = this.listPlayers.find(p => p.id === this.playerId);
-      if (playerToEdit) {
-        this.form.patchValue(playerToEdit);
-      }
+      this.loadPlayerData(this.playerId);
     }
   }
 
+  loadPlayerData(id: number) {
+    this.loading = true;
+    this._playerService.getPlayerById(id).subscribe({
+      next: (player) => {
+        this.form.patchValue(player);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading player', err);
+        this.loading = false;
+      }
+    });
+  }
+
   onSubmit() {
-if (this.form.valid) { // Generar ID automático para nuevos jugadores
-    const newId = this.playerId ? this.playerId : (Math.max(0, ...this.listPlayers.map(p => p.id))) + 1;
-
+    if (this.form.valid) {
       const player: Player = {
-        id: newId, // Usar el ID existente o generar uno nuevo
-        long_name: this.form.value.long_name,
-        player_face_url: this.form.value.player_face_url,
-        club_name: this.form.value.club_name,
-        nationality_name: this.form.value.nationality_name,
-        player_positions: this.form.value.player_positions,
-        fifa_version: this.form.value.fifa_version,
-        age: this.form.value.age,
-        overall: this.form.value.overall,
-        height_cm: this.form.value.height_cm,
-        weight_kg: this.form.value.weight_kg,
-        preferred_foot: this.form.value.preferred_foot,
-
-        // Estadísticas principales
-        pace: this.form.value.pace,
-        shooting: this.form.value.shooting,
-        passing: this.form.value.passing,
-        dribbling: this.form.value.dribbling,
-        defending: this.form.value.defending,
-        physic: this.form.value.physic,
-
-        // Estadísticas específicas relevantes
-        attacking_finishing: this.form.value.attacking_finishing,
-        skill_ball_control: this.form.value.skill_ball_control,
-        movement_reactions: this.form.value.movement_reactions,
-        power_shot_power: this.form.value.power_shot_power
+        id: this.playerId || 0, // Si es nuevo, el backend debería asignar ID
+        ...this.form.value
       };
 
-      // Aquí iría la lógica para guardar los cambios (por ejemplo, llamar a un servicio)
-      // this.playerService.savePlayer(player);
-
+      // Aquí deberías llamar al servicio para guardar
+      // Por ejemplo: this._playerService.savePlayer(player).subscribe(...)
+      
       this.router.navigate(['/list']);
-      console.log(player)
     }
   }
 }

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Player from '../models/player-models';
 
 export const getPlayers = async (req: Request, res: Response) => {
-    const limit = Number(req.query.limit) || 20;
+    const limit = Number(req.query.limit) || 36;
     const offset = Number(req.query.offset) || 0;
 
     const players = await Player.findAll({ limit, offset });
