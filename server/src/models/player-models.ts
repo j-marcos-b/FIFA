@@ -93,7 +93,7 @@ const Player = db.define('Player', {
     }
 }, {
     tableName: 'players',
-    timestamps: false
+    timestamps: false //No se crearán createdAt y updatedAt
 });
 
 export default Player;
