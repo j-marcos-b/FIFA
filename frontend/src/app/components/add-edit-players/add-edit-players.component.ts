@@ -6,6 +6,7 @@ import { Player } from '../../interfaces/player';
 import { CommonModule } from '@angular/common';
 import { PlayerService } from '../../services/player.service';
 import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-players',
@@ -22,6 +23,7 @@ export class AddEditPlayersComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     public router: Router,
+    private toastr: ToastrService,
     private _playerService: PlayerService // Inyectar el servicio
   ) {
     this.form = this.fb.group({
@@ -82,29 +84,29 @@ export class AddEditPlayersComponent implements OnInit {
         // Editar jugador existente
         this._playerService.updatePlayer(this.playerId, player).subscribe({
           next: () => {
-            alert('Jugador actualizado correctamente');
+            this.toastr.info('¡Jugador actualizado correctamente!');
             this.router.navigate(['/players']); // Volver a la lista
           },
           error: (err) => {
             console.error('Error al actualizar jugador', err);
-            alert('Error al actualizar el jugador');
+            this.toastr.error('Error al actualizar el jugador');
           }
         });
       } else {
         // Agregar nuevo jugador
         this._playerService.savePlayer(player).subscribe({
           next: () => {
-            alert('Jugador agregado correctamente');
+            this.toastr.info('Jugador agregado correctamente!');
             this.router.navigate(['/players']); // Volver a la lista
           },
           error: (err) => {
             console.error('Error al agregar jugador', err);
-            alert('Error al agregar el jugador');
+            this.toastr.error('Error al agregar el jugador');
           }
         });
       }
     } else {
-      alert('Formulario inválido, por favor completa todos los campos correctamente.');
+      this.toastr.error('Formulario inválido, por favor completa todos los campos correctamente.');
     }
   }
 
