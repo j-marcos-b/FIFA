@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Player } from '../../interfaces/player';
 import { RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
+import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-list-players',
-  imports: [RouterLink],
+  imports: [RouterLink, ProgressBarComponent],
   templateUrl: './list-players.component.html',
   styleUrls: ['./list-players.component.css']
 })
 export class ListPlayersComponent implements OnInit {
   listPlayers: Player[] = [];
+  loading: boolean = false;
 
   constructor(private _playerService: PlayerService) {}
 
@@ -19,8 +21,10 @@ export class ListPlayersComponent implements OnInit {
   }
 
   getListPlayers(): void {
+    this.loading = true;
     this._playerService.getListPlayers().subscribe((data) => {
       this.listPlayers = data;
+      this.loading = false;
     })
   }
     

@@ -1,4 +1,7 @@
-<div class="container mt-5">
+@if (loading) {
+  <app-progress-bar></app-progress-bar>
+} @else {
+  <div class="container mt-5">
   <h1 class="collection-title">Colección de Jugadores FIFA</h1>
   <p class="collection-description">
     Explora y descubre las estadísticas de tus jugadores favoritos. Coloca el
@@ -149,3 +152,6 @@
     }
   </div>
 </div>
+
+}
+
