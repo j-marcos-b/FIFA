@@ -77,7 +77,7 @@ export class ListPlayersComponent implements OnInit {
   getOverallColor(overall: number): string {
     if (overall >= 90) return '#ff0000';       // Rojo para 90+
     if (overall >= 85) return '#ff8c00';       // Naranja para 85-89
-    if (overall >= 80) return '#ffd700';       // Oro para 80-84
-    return '#c0c0c0';                          // Plata para menos de 80
+    if (overall >= 80) return '#ffd700';       // Amarillo para 80-84
+    return '#BF814B';                          // Marrón para menos de 80
   }
 }
