@@ -25,4 +25,6 @@ export class PlayerService {
   getPlayerById(id: number): Observable<Player> {
     return this.http.get<Player>(`${this.myAppUrl}${this.myApiUrl}${id}`);
   }
+
+  
 }

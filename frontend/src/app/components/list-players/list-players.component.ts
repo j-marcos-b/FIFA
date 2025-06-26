@@ -3,6 +3,7 @@ import { Player } from '../../interfaces/player';
 import { RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-players',
@@ -14,7 +15,7 @@ export class ListPlayersComponent implements OnInit {
   listPlayers: Player[] = [];
   loading: boolean = false;
 
-  constructor(private _playerService: PlayerService) {}
+  constructor(private _playerService: PlayerService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getListPlayers();
@@ -22,7 +23,7 @@ export class ListPlayersComponent implements OnInit {
 
   getListPlayers(): void {
     this.loading = true;
-    this._playerService.getListPlayers().subscribe((data) => {
+    this._playerService.getListPlayers().subscribe((data: Player[]) => {
       this.listPlayers = data;
       this.loading = false;
     })
