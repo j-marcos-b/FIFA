@@ -1,4 +1,7 @@
-<div class="d-flex justify-content-center mt-5">
+@if (loading) {
+    <app-progress-bar></app-progress-bar>
+} @else {
+    <div class="d-flex justify-content-center mt-5">
     <div class="card text-white bg-dark mb-3">
         <div class="card-header text-white">Editar Jugador</div>
         <div class="card-body">
@@ -206,3 +209,5 @@
         </div>
     </div>
 </div>
+}
+

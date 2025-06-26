@@ -5,10 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Player } from '../../interfaces/player';
 import { CommonModule } from '@angular/common';
 import { PlayerService } from '../../services/player.service';
+import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-add-edit-players',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ProgressBarComponent],
   templateUrl: './add-edit-players.component.html',
   styleUrl: './add-edit-players.component.css'
 })
