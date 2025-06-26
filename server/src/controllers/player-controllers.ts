@@ -68,17 +68,3 @@ export const updatePlayer = async (req: Request, res: Response): Promise<void> =
 }
 
 
-export const deletePlayer = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const player = await Player.findByPk(id);
-    if (player) {
-        await player.destroy();
-        res.json({
-            msg: `Jugador con id ${id} eliminado`
-        });
-    } else {
-        res.status(404).json({
-            msg: `No existe un jugador con el id ${id}`
-        });
-    }
-}

@@ -32,7 +32,6 @@ class server {
 
     middleware() {
         this.app.use(express.json());
-        /* cors */
         this.app.use(cors());
     }
 
