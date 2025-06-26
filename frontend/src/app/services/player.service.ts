@@ -31,7 +31,11 @@ export class PlayerService {
   }
 
   updatePlayer(id: number, player: Player): Observable<void> {
-  return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, player);
-}
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, player);
+  }
+
+  getPlayersWithPagination(limit: number, offset: number): Observable<Player[]> {
+    return this.http.get<Player[]>(`${this.myAppUrl}${this.myApiUrl}?limit=${limit}&offset=${offset}`);
+  }
 
 }

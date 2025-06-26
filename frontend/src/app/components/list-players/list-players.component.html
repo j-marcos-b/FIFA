@@ -31,7 +31,7 @@
           </div>
           <div class="player-image-container">
             <img [src]="player.player_face_url" alt="{{ player.long_name }}" class="player-image"
-              onerror="this.src='https://picsum.photos/200'" />
+              onerror="this.src='https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792_1280.png'" />
             <div class="player-overall" [style.background-color]="getOverallColor(player.overall)">
               {{ player.overall }}
             </div>
@@ -133,6 +133,26 @@
     </div>
     }
   </div>
+  <div class="pagination-buttons text-center my-4">
+    <button class="btn btn-outline-secondary me-2" (click)="previousTenPages()" [disabled]="currentPage <= 10">
+      <span class="adelantar"><<</span>
+    </button>
+
+    <button class="btn btn-secondary me-2" (click)="previousPage()" [disabled]="currentPage === 1">
+      <
+    </button>
+
+    <span class="mx-3">Página {{ currentPage }}</span>
+
+    <button class="btn btn-secondary ms-2" (click)="nextPage()" [disabled]="listPlayers.length < pageSize">
+      >
+    </button>
+
+    <button class="btn btn-outline-secondary ms-2" (click)="nextTenPages()" [disabled]="listPlayers.length < pageSize">
+      <span class="adelantar">>></span>
+    </button>
+  </div>
+
 </div>
 
 }
