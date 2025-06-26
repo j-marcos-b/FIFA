@@ -71,41 +71,41 @@ export class AddEditPlayersComponent implements OnInit {
     });
   }
 
-onSubmit() {
-  if (this.form.valid) {
-    const player: Player = {
-      id: this.playerId || 0, // 0 si es nuevo jugador
-      ...this.form.value
-    };
+  onSubmit() {
+    if (this.form.valid) {
+      const player: Player = {
+        id: this.playerId || 0, // 0 si es nuevo jugador
+        ...this.form.value
+      };
 
-    if (this.playerId) {
-      // Editar jugador existente
-      this._playerService.updatePlayer(this.playerId, player).subscribe({
-        next: () => {
-          alert('Jugador actualizado correctamente');
-          this.router.navigate(['/players']); // Volver a la lista
-        },
-        error: (err) => {
-          console.error('Error al actualizar jugador', err);
-          alert('Error al actualizar el jugador');
-        }
-      });
+      if (this.playerId) {
+        // Editar jugador existente
+        this._playerService.updatePlayer(this.playerId, player).subscribe({
+          next: () => {
+            alert('Jugador actualizado correctamente');
+            this.router.navigate(['/players']); // Volver a la lista
+          },
+          error: (err) => {
+            console.error('Error al actualizar jugador', err);
+            alert('Error al actualizar el jugador');
+          }
+        });
+      } else {
+        // Agregar nuevo jugador
+        this._playerService.savePlayer(player).subscribe({
+          next: () => {
+            alert('Jugador agregado correctamente');
+            this.router.navigate(['/players']); // Volver a la lista
+          },
+          error: (err) => {
+            console.error('Error al agregar jugador', err);
+            alert('Error al agregar el jugador');
+          }
+        });
+      }
     } else {
-      // Agregar nuevo jugador
-      this._playerService.savePlayer(player).subscribe({
-        next: () => {
-          alert('Jugador agregado correctamente');
-          this.router.navigate(['/players']); // Volver a la lista
-        },
-        error: (err) => {
-          console.error('Error al agregar jugador', err);
-          alert('Error al agregar el jugador');
-        }
-      });
+      alert('Formulario inválido, por favor completa todos los campos correctamente.');
     }
-  } else {
-    alert('Formulario inválido, por favor completa todos los campos correctamente.');
   }
-}
 
 }

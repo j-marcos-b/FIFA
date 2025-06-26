@@ -1,15 +1,16 @@
 @if (loading) {
-  <app-progress-bar></app-progress-bar>
+<app-progress-bar></app-progress-bar>
 } @else {
-  <div class="container mt-5">
+<div class="container mt-5">
   <h1 class="collection-title">Colección de Jugadores FIFA</h1>
   <p class="collection-description">
-    Explora y descubre las estadísticas de tus jugadores favoritos. Coloca el
-    puntero del mouse sobre el jugador para más detalles.
+    Explorá y descubrí las estadísticas de tus jugadores favoritos.
+    Colocá el puntero del mouse sobre un jugador para ver más detalles
+    y tocá el ícono de ajustes para editar su información.
   </p>
   <div class="d-flex justify-content-end">
     <button class="btn btn-outline-info" routerLink="/add">
-      ¡Agregate a tí como jugador!
+      ¡Agregate como jugador!
     </button>
   </div>
   <div class="football-cards-container">
@@ -29,16 +30,9 @@
             <span class="nationality">{{ player.nationality_name }}</span>
           </div>
           <div class="player-image-container">
-            <img
-              [src]="player.player_face_url"
-              alt="{{ player.long_name }}"
-              class="player-image"
-              onerror="this.src='https://picsum.photos/200'"
-            />
-            <div
-              class="player-overall"
-              [style.background-color]="getOverallColor(player.overall)"
-            >
+            <img [src]="player.player_face_url" alt="{{ player.long_name }}" class="player-image"
+              onerror="this.src='https://picsum.photos/200'" />
+            <div class="player-overall" [style.background-color]="getOverallColor(player.overall)">
               {{ player.overall }}
             </div>
           </div>
@@ -54,21 +48,21 @@
                 <span class="stat-label">Altura</span>
                 <span class="stat-value">{{
                   player.height_cm
-                    ? (player.height_cm / 100).toFixed(2) + "m"
-                    : "-"
-                }}</span>
+                  ? (player.height_cm / 100).toFixed(2) + "m"
+                  : "-"
+                  }}</span>
               </div>
               <div class="stat-item">
                 <span class="stat-label">Peso</span>
                 <span class="stat-value">{{
                   player.weight_kg ? player.weight_kg + "kg" : "-"
-                }}</span>
+                  }}</span>
               </div>
               <div class="stat-item">
                 <span class="stat-label">Pie</span>
                 <span class="stat-value">{{
                   player.preferred_foot || "-"
-                }}</span>
+                  }}</span>
               </div>
             </div>
           </div>
@@ -107,37 +101,25 @@
                 <div class="special-stat">
                   <span>Finalización</span>
                   <div class="stat-bar">
-                    <div
-                      class="stat-bar-fill"
-                      [style.width.%]="player.attacking_finishing || 0"
-                    ></div>
+                    <div class="stat-bar-fill" [style.width.%]="player.attacking_finishing || 0"></div>
                   </div>
                 </div>
                 <div class="special-stat">
                   <span>Control</span>
                   <div class="stat-bar">
-                    <div
-                      class="stat-bar-fill"
-                      [style.width.%]="player.skill_ball_control || 0"
-                    ></div>
+                    <div class="stat-bar-fill" [style.width.%]="player.skill_ball_control || 0"></div>
                   </div>
                 </div>
                 <div class="special-stat">
                   <span>Reacciones</span>
                   <div class="stat-bar">
-                    <div
-                      class="stat-bar-fill"
-                      [style.width.%]="player.movement_reactions || 0"
-                    ></div>
+                    <div class="stat-bar-fill" [style.width.%]="player.movement_reactions || 0"></div>
                   </div>
                 </div>
                 <div class="special-stat">
                   <span>Fuerza de tiro</span>
                   <div class="stat-bar">
-                    <div
-                      class="stat-bar-fill"
-                      [style.width.%]="player.power_shot_power || 0"
-                    ></div>
+                    <div class="stat-bar-fill" [style.width.%]="player.power_shot_power || 0"></div>
                   </div>
                 </div>
               </div>
@@ -154,4 +136,3 @@
 </div>
 
 }
-
