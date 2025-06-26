@@ -70,17 +70,41 @@ export class AddEditPlayersComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      const player: Player = {
-        id: this.playerId || 0, // Si es nuevo, el backend debería asignar ID
-        ...this.form.value
-      };
+onSubmit() {
+  if (this.form.valid) {
+    const player: Player = {
+      id: this.playerId || 0, // 0 si es nuevo jugador
+      ...this.form.value
+    };
 
-      // Aquí deberías llamar al servicio para guardar
-      // Por ejemplo: this._playerService.savePlayer(player).subscribe(...)
-      
-      this.router.navigate(['/list']);
+    if (this.playerId) {
+      // Editar jugador existente
+      this._playerService.updatePlayer(this.playerId, player).subscribe({
+        next: () => {
+          alert('Jugador actualizado correctamente');
+          this.router.navigate(['/players']); // Volver a la lista
+        },
+        error: (err) => {
+          console.error('Error al actualizar jugador', err);
+          alert('Error al actualizar el jugador');
+        }
+      });
+    } else {
+      // Agregar nuevo jugador
+      this._playerService.savePlayer(player).subscribe({
+        next: () => {
+          alert('Jugador agregado correctamente');
+          this.router.navigate(['/players']); // Volver a la lista
+        },
+        error: (err) => {
+          console.error('Error al agregar jugador', err);
+          alert('Error al agregar el jugador');
+        }
+      });
     }
+  } else {
+    alert('Formulario inválido, por favor completa todos los campos correctamente.');
   }
+}
+
 }
