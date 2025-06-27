@@ -1,0 +1,52 @@
+<div class="evolution-container">
+    <div class="player-header">
+        <h2>Evolución de {{ playerData?.long_name }}</h2>
+        <div class="player-info">
+            <span><strong>Club:</strong> {{ playerData?.club_name }}</span>
+            <span><strong>Nacionalidad:</strong> {{ playerData?.nationality_name }}</span>
+            <span><strong>Posición:</strong> {{ playerData?.player_positions }}</span>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="radarChart"></canvas>
+    </div>
+
+    <div class="evolution-table">
+        <h3>Estadísticas por versión</h3>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>FIFA Version</th>
+                        <th>Overall</th>
+                        <th>PAC</th>
+                        <th>SHO</th>
+                        <th>PAS</th>
+                        <th>DRI</th>
+                        <th>DEF</th>
+                        <th>PHY</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    @for (player of evolutionData; track $index) {
+                    <tr>
+                        <td>{{ player.fifa_version }}</td>
+                        <td><strong>{{ player.overall }}</strong></td>
+                        <td>{{ player.pace }}</td>
+                        <td>{{ player.shooting }}</td>
+                        <td>{{ player.passing }}</td>
+                        <td>{{ player.dribbling }}</td>
+                        <td>{{ player.defending }}</td>
+                        <td>{{ player.physic }}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="back-button">
+        <button class="btn btn-outline-primary" routerLink="/players">Volver al inicio</button>
+    </div>
+</div>

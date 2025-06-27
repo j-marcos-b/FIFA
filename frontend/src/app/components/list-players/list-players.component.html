@@ -71,6 +71,11 @@
           </div>
         </div>
         <div class="card-face back">
+          <!-- Botón de evolución en la esquina superior derecha -->
+          <button class="evolution-button" routerLink="/player-evolution/{{ player.id }}">
+            <i class="fas fa-chart-line"></i>
+            <span class="tooltip-text">Evolución</span>
+          </button>
           <div class="card-back-content">
             <div class="stats-header">Estadísticas</div>
             <div class="stats-grid">

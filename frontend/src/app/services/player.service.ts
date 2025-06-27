@@ -114,4 +114,12 @@ export class PlayerService {
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+
+  /* Evolucion del jugador */
+  getPlayerEvolution(id: number): Observable<Player[]> {
+  return this.http.get<Player[]>(`${this.myAppUrl}${this.myApiUrl}${id}/evolution`)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 }

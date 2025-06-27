@@ -1,0 +1,76 @@
+.evolution-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.player-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.player-header h2 {
+  color: #1e3c72;
+  margin-bottom: 1rem;
+}
+
+.player-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.chart-container {
+  margin: 3rem auto;
+  max-width: 800px;
+  height: 500px;
+}
+
+.evolution-table {
+  margin-top: 3rem;
+}
+
+.evolution-table h3 {
+  color: #1e3c72;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.table th {
+  background-color: #4DA3BD;
+  color: white;
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.back-button {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-outline-primary {
+  border-color: #4DA3BD;
+  color: #4DA3BD;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4DA3BD;
+  color: white;
+}
