@@ -13,7 +13,7 @@ export class PlayerEvolutionComponent implements OnInit {
   playerId: number = 0; // Inicializado con valor por defecto
   playerData: Player | null = null; // Inicializado como null
   evolutionData: Player[] = []; // Inicializado como array vacío
-  radarChart: Chart<'radar'> | null = null; // Inicializado como null
+  radarChart: Chart<'line'> | null = null; // Cambiado a tipo 'line' para coincidir con el tipo de gráfico usado
 
   constructor(
     private route: ActivatedRoute,
@@ -78,25 +78,29 @@ export class PlayerEvolutionComponent implements OnInit {
       return;
     }
 
-    const labels = ['PAC', 'SHO', 'PAS', 'DRI', 'DEF', 'PHY'];
-    const datasets = this.evolutionData.map(player => ({
-      label: `FIFA ${player.fifa_version}`,
-      data: [
-        player.pace || 0,
-        player.shooting || 0,
-        player.passing || 0,
-        player.dribbling || 0,
-        player.defending || 0,
-        player.physic || 0
-      ],
-      borderWidth: 2,
-      pointBackgroundColor: '#4DA3BD',
-      pointBorderColor: '#fff',
-      pointHoverRadius: 5
+    // Etiquetas para el eje X: versiones FIFA
+    const labels = this.evolutionData.map(player => `FIFA ${player.fifa_version}`);
+
+    // Estadísticas a mostrar como series
+    const stats = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic'];
+    const statLabels = ['PAC', 'SHO', 'PAS', 'DRI', 'DEF', 'PHY'];
+    const colors = ['#4DA3BD', '#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#FF7F50'];
+
+    // Construir datasets: cada estadística es una serie con valores por versión FIFA
+    const datasets = stats.map((stat, index) => ({
+      label: statLabels[index],
+      data: this.evolutionData.map(player => (player as any)[stat] || 0),
+      borderColor: colors[index],
+      backgroundColor: colors[index] + '33', // color con transparencia
+      fill: false,
+      tension: 0.1,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      borderWidth: 2
     }));
 
-    const config: ChartConfiguration<'radar'> = {
-      type: 'radar',
+    const config: ChartConfiguration<'line'> = {
+      type: 'line',
       data: {
         labels,
         datasets
@@ -105,16 +109,18 @@ export class PlayerEvolutionComponent implements OnInit {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          r: {
-            angleLines: {
-              display: true
-            },
-            suggestedMin: 0,
-            suggestedMax: 100,
-            pointLabels: {
-              font: {
-                size: 12
-              }
+          x: {
+            title: {
+              display: true,
+              text: 'Versión FIFA'
+            }
+          },
+          y: {
+            min: 0,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Valor Estadístico'
             }
           }
         },
@@ -123,9 +129,11 @@ export class PlayerEvolutionComponent implements OnInit {
             position: 'top',
           },
           tooltip: {
+            mode: 'nearest',
+            intersect: false,
             callbacks: {
               label: (context) => {
-                return `${context.dataset.label}: ${context.raw}`;
+                return `${context.dataset.label}: ${context.parsed.y}`;
               }
             }
           }
