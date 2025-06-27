@@ -1,0 +1,23 @@
+<div class="filter-container mb-4">
+  <form (ngSubmit)="onSubmit()" class="d-flex flex-wrap align-items-end gap-3">
+    <div>
+      <label for="filterType" class="form-label">Filtrar por</label>
+      <select [(ngModel)]="filterType" name="filterType" class="form-select">
+        <option value="name">Nombre</option>
+        <option value="club">Club</option>
+        <option value="nationality">Nacionalidad</option>
+        <option value="fifaVersion">Versión FIFA</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="filterValue" class="form-label">Valor</label>
+      <input [(ngModel)]="filterValue" name="filterValue" class="form-control" [type]="filterType === 'fifaVersion' ? 'number' : 'text'" />
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-outline-info">Aplicar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="resetFilters()">Limpiar</button>
+    </div>
+  </form>
+</div>

@@ -4,11 +4,13 @@ import { RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
 import { ToastrService } from 'ngx-toastr';
+import { FilterPlayersComponent } from '../filter-players/filter-players.component';
+
 
 @Component({
   selector: 'app-list-players',
   standalone: true,
-  imports: [RouterLink, ProgressBarComponent],
+  imports: [RouterLink, ProgressBarComponent, FilterPlayersComponent],
   templateUrl: './list-players.component.html',
   styleUrls: ['./list-players.component.css']
 })
@@ -17,6 +19,8 @@ export class ListPlayersComponent implements OnInit {
   loading: boolean = false;
   currentPage: number = 1;
   pageSize: number = 36;
+  filters: any = {};
+
 
   constructor(private _playerService: PlayerService, private toastr: ToastrService) { }
 
@@ -24,21 +28,34 @@ export class ListPlayersComponent implements OnInit {
     this.getListPlayers();
   }
 
-  getListPlayers(): void {
-    this.loading = true;
-    const offset = (this.currentPage - 1) * this.pageSize;
+getListPlayers(): void {
+  this.loading = true;
+  const offset = (this.currentPage - 1) * this.pageSize;
+
+  if (Object.keys(this.filters).length === 0) {
     this._playerService.getPlayersWithPagination(this.pageSize, offset).subscribe({
-      next: (data: Player[]) => {
+      next: (data) => {
         this.listPlayers = data;
         this.loading = false;
       },
       error: (err) => {
         this.toastr.error('Error al cargar jugadores', 'Error');
-        console.error(err);
+        this.loading = false;
+      }
+    });
+  } else {
+    this._playerService.getPlayersWithFilters({ ...this.filters, limit: this.pageSize, offset }).subscribe({
+      next: (data) => {
+        this.listPlayers = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.toastr.error('Error al filtrar jugadores', 'Error');
         this.loading = false;
       }
     });
   }
+}
 
   nextPage(): void {
     this.currentPage++;
@@ -66,6 +83,12 @@ export class ListPlayersComponent implements OnInit {
     this.getListPlayers();
   }
 
+  onApplyFilter(filterData: any) {
+    console.log('Filtro aplicado:', filterData);
+  this.filters = filterData;
+  this.currentPage = 1;
+  this.getListPlayers();
+}
 
   formatValue(value: number | undefined): string {
     if (!value) return 'N/A';

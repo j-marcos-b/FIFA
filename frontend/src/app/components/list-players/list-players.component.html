@@ -8,10 +8,13 @@
     Colocá el puntero del mouse sobre un jugador para ver más detalles
     y tocá el ícono de ajustes para editar su información.
   </p>
-  <div class="d-flex justify-content-end">
-    <button class="btn btn-outline-info" routerLink="/add">
-      ¡Agregate como jugador!
-    </button>
+  <div class="filtro-agregar">
+    <app-filter-players (applyFilter)="onApplyFilter($event)"></app-filter-players>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-info" routerLink="/add">
+        ¡Agregate como jugador!
+      </button>
+    </div>
   </div>
   <div class="football-cards-container">
     @for (player of listPlayers; track $index) {
@@ -135,22 +138,23 @@
   </div>
   <div class="pagination-buttons text-center my-4">
     <button class="btn btn-outline-secondary me-2" (click)="previousTenPages()" [disabled]="currentPage <= 10">
-      <span class="adelantar"><<</span>
+      <span class="adelantar">
+        << </span>
     </button>
 
     <button class="btn btn-secondary me-2" (click)="previousPage()" [disabled]="currentPage === 1">
-      <
-    </button>
+      < </button>
 
-    <span class="mx-3">Página {{ currentPage }}</span>
+        <span class="mx-3">Página {{ currentPage }}</span>
 
-    <button class="btn btn-secondary ms-2" (click)="nextPage()" [disabled]="listPlayers.length < pageSize">
-      >
-    </button>
+        <button class="btn btn-secondary ms-2" (click)="nextPage()" [disabled]="listPlayers.length < pageSize">
+          >
+        </button>
 
-    <button class="btn btn-outline-secondary ms-2" (click)="nextTenPages()" [disabled]="listPlayers.length < pageSize">
-      <span class="adelantar">>></span>
-    </button>
+        <button class="btn btn-outline-secondary ms-2" (click)="nextTenPages()"
+          [disabled]="listPlayers.length < pageSize">
+          <span class="adelantar">>></span>
+        </button>
   </div>
 
 </div>

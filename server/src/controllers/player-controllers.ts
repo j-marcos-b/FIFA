@@ -1,14 +1,57 @@
 import { Request, Response } from 'express';
 import Player from '../models/player-models';
+import { Op, where, fn, col, literal } from 'sequelize';
+
 
 export const getPlayers = async (req: Request, res: Response) => {
-    const limit = Number(req.query.limit) || 36;
-    const offset = Number(req.query.offset) || 0;
+  const limit = Number(req.query.limit) || 36;
+  const offset = Number(req.query.offset) || 0;
 
-    const players = await Player.findAll({ limit, offset });
+  const filters: any = {};
+
+  if (req.query.name) {
+    filters[Op.and] = [
+      where(fn('LOWER', col('long_name')), {
+        [Op.like]: `%${(req.query.name as string).toLowerCase()}%`
+      })
+    ];
+  }
+
+  if (req.query.club) {
+    filters[Op.and] = [
+      ...(filters[Op.and] || []),
+      where(fn('LOWER', col('club_name')), {
+        [Op.like]: `%${(req.query.club as string).toLowerCase()}%`
+      })
+    ];
+  }
+
+  if (req.query.nationality) {
+    filters[Op.and] = [
+      ...(filters[Op.and] || []),
+      where(fn('LOWER', col('nationality_name')), {
+        [Op.like]: `%${(req.query.nationality as string).toLowerCase()}%`
+      })
+    ];
+  }
+
+  if (req.query.fifaVersion) {
+    filters.fifa_version = req.query.fifaVersion;
+  }
+
+  try {
+    const players = await Player.findAll({
+      where: filters,
+      limit,
+      offset,
+    });
 
     res.json(players);
-}
+  } catch (error) {
+    console.error('Error al obtener jugadores con filtros:', error);
+    res.status(500).json({ msg: 'Error al obtener jugadores' });
+  }
+};
 
 export const getPlayerById = async (req: Request, res: Response) => {
     const { id } = req.params;
