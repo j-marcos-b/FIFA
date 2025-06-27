@@ -9,9 +9,16 @@
 
 .collection-description {
   text-align: center;
-  color: #858585;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+  color: #c7c7c7;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 25px;
+}
+
+.collection-description i {
+  color: #4da3bd;
+  margin: 0 2px;
 }
 
 .filtro-agregar {
