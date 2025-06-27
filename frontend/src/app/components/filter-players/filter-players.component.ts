@@ -14,16 +14,13 @@ export class FilterPlayersComponent {
 
   filterType: string = 'name';
   filterValue: string = '';
+  fifaVersions: number[] = [15, 16, 17, 18, 19, 20, 21, 22, 23];
+
 
   onSubmit() {
     const filter = {
       [this.filterType]: this.filterType === 'fifaVersion' ? Number(this.filterValue) : this.filterValue
     };
     this.applyFilter.emit(filter);
-  }
-
-  resetFilters() {
-    this.filterValue = '';
-    this.applyFilter.emit({}); // Vacía los filtros
   }
 }

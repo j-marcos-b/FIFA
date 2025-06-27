@@ -12,12 +12,18 @@
 
     <div>
       <label for="filterValue" class="form-label">Valor</label>
-      <input [(ngModel)]="filterValue" name="filterValue" class="form-control" [type]="filterType === 'fifaVersion' ? 'number' : 'text'" />
+
+      <!-- Input de texto para todos los filtros excepto fifaVersion -->
+      <input *ngIf="filterType !== 'fifaVersion'" [(ngModel)]="filterValue" name="filterValue" class="form-control" type="text" />
+
+      <!-- Selector para fifaVersion -->
+      <select *ngIf="filterType === 'fifaVersion'" [(ngModel)]="filterValue" name="filterValue" class="form-select">
+        <option *ngFor="let version of fifaVersions" [value]="version">{{ version }}</option>
+      </select>
     </div>
 
     <div>
       <button type="submit" class="btn btn-outline-info">Aplicar</button>
-      <button type="button" class="btn btn-secondary ms-2" (click)="resetFilters()">Limpiar</button>
     </div>
   </form>
 </div>
