@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../../services/player.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { Player } from '../../interfaces/player';
 
 @Component({
   selector: 'app-player-evolution',
+  imports: [RouterLink],
   templateUrl: './player-evolution.component.html',
   styleUrls: ['./player-evolution.component.css']
 })

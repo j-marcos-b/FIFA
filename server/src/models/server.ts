@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import routePlayer from '../routes/player-routes';
+import routeCsvUpload from '../routes/csv-upload-routes';
 import db from '../db/connection';
 
 class server {
@@ -27,7 +28,8 @@ class server {
             res.json({msn:'Servidor corriendo'});
         });
 
-        this.app.use('/api/players', routePlayer);
+    this.app.use('/api/players', routePlayer);
+    this.app.use('/api/csv', routeCsvUpload);
     }
 
     middleware() {

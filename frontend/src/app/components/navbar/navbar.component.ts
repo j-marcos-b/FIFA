@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ export class NavbarComponent {
   selectedFile: File | null = null;
   selectedFileName: string = '';
 
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService, private http: HttpClient) {}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -30,16 +31,29 @@ export class NavbarComponent {
 
   uploadFile(): void {
     if (this.selectedFile) {
-      console.log('Subiendo archivo:', this.selectedFile.name);
-      // Aquí puedes agregar la lógica para subir el archivo al servidor o procesarlo
-      this.toastr.info(`Archivo "${this.selectedFile.name}" subido correctamente.`);
-      // Reset after upload
-      this.selectedFile = null;
-      this.selectedFileName = '';
-      const input = document.getElementById('csvUpload') as HTMLInputElement;
-      if (input) {
-        input.value = '';
-      }
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      this.http.post('/api/csv/upload-csv', formData).subscribe({
+        next: (response: any) => {
+          this.toastr.success(response.msg || 'Archivo subido correctamente');
+          this.resetFileInput();
+        },
+        error: (error: HttpErrorResponse) => {
+          const msg = error.error?.msg || 'Error al subir el archivo';
+          this.toastr.error(msg);
+          this.resetFileInput();
+        }
+      });
+    }
+  }
+
+  private resetFileInput(): void {
+    this.selectedFile = null;
+    this.selectedFileName = '';
+    const input = document.getElementById('csvUpload') as HTMLInputElement;
+    if (input) {
+      input.value = '';
     }
   }
 }
