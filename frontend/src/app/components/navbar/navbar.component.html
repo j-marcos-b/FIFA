@@ -1,15 +1,22 @@
 <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
-  <div class="container-fluid">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
     <!-- Logo/Brand a la izquierda -->
     <a class="navbar-brand" href="/players"><span>FIFA</span> Players</a>
-    
+
     <!-- Toggler para móvil -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
-       <div class="collapse navbar-collapse" id="navbarColor01">
-      
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <div class="file-upload-container d-flex align-items-center">
+        <input type="text" class="form-control file-name-display" [value]="selectedFileName"
+          placeholder="archivo no seleccionado" readonly />
+        <label for="csvUpload" class="btn btn-outline-info">Examinar</label>
+        <input type="file" id="csvUpload" accept=".csv" (change)="onFileSelected($event)" hidden />
+        <button class="btn btn-info ms-2" (click)="uploadFile()" [disabled]="!selectedFile">Subir CSV</button>
+      </div>
       <!-- Botones derecha -->
       <div class="d-flex ms-auto">
         <a href="#" id="login" class="btn btn-outline-info me-2">Login</a>
