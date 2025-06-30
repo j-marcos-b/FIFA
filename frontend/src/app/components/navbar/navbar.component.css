@@ -108,3 +108,7 @@ span {
   box-shadow: none !important;
   pointer-events: none;
 }
+
+.btn-outline-info {
+  color: #fff;
+}

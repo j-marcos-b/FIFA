@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import routePlayer from '../routes/player-routes';
 import routeCsvUpload from '../routes/csv-upload-routes';
+import authRoutes from '../routes/auth-routes';
 import db from '../db/connection';
 
 class server {
@@ -11,9 +12,9 @@ class server {
     constructor() {
         this.port = process.env.PORT || '3000';
         this.app = express();
-        this.listen();
         this.middleware();
         this.routes();
+        this.listen();
         this.debConnect();
     }
 
@@ -30,6 +31,7 @@ class server {
 
     this.app.use('/api/players', routePlayer);
     this.app.use('/api/csv', routeCsvUpload);
+    this.app.use('/api/auth', authRoutes);
     }
 
     middleware() {

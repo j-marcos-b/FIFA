@@ -2,7 +2,7 @@
   max-width: 400px;
   margin: 100px auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #4da3bd;
   border-radius: 8px;
   text-align: center;
 }
@@ -16,4 +16,12 @@
   margin-top: 10px;
   padding: 10px 20px;
   cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+  border: solid 1px #4da3bd;
+  transition: all 0.3s ease;
+}
+
+.auth-container button:hover {
+  background-color: #4da3bd;
 }

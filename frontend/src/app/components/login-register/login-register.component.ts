@@ -18,7 +18,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   email: string = '';
   password: string = '';
   private modeSubscription: Subscription | undefined;
-  apiUrl = 'http://localhost:3000/api/auth'; // Ajustar según backend
+  apiUrl = '/api/auth'; // Ajustar para usar proxy
 
   constructor(
     private authModeService: AuthModeService,
@@ -55,29 +55,35 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email: this.email, password: this.password })
-      .subscribe({
-        next: (res) => {
-          localStorage.setItem('token', res.token);
-          this.toastr.success('Login exitoso', 'Éxito');
-          this.router.navigate(['/players']);
-        },
-        error: (err) => {
-          this.toastr.error('Login fallido', 'Error');
-        }
-      });
+    this.http.post<{ token: string }>(
+      `${this.apiUrl}/login`,
+      { email: this.email, password: this.password },
+      { headers: { 'Content-Type': 'application/json' } }
+    ).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        this.toastr.success('Login exitoso', 'Éxito');
+        this.router.navigate(['/players']);
+      },
+      error: (err) => {
+        this.toastr.error('Login fallido', 'Error');
+      }
+    });
   }
 
   register(): void {
-    this.http.post(`${this.apiUrl}/register`, { email: this.email, password: this.password })
-      .subscribe({
-        next: () => {
-          this.toastr.success('Registro exitoso, ahora puede iniciar sesión', 'Éxito');
-          this.isLoginMode = true;
-        },
-        error: () => {
-          this.toastr.error('Registro fallido', 'Error');
-        }
-      });
+    this.http.post(
+      `${this.apiUrl}/register`,
+      { email: this.email, password: this.password },
+      { headers: { 'Content-Type': 'application/json' } }
+    ).subscribe({
+      next: () => {
+        this.toastr.success('Registro exitoso, ahora puede iniciar sesión', 'Éxito');
+        this.isLoginMode = true;
+      },
+      error: () => {
+        this.toastr.error('Registro fallido', 'Error');
+      }
+    });
   }
 }
