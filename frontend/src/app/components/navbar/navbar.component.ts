@@ -29,10 +29,16 @@ export class NavbarComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      const hideCsvRoutes = ['/', '/login', '/register'];
+      const hideCsvRoutes = ['/', '/login', '/register', '/welcome-page'];
       this.showCsvUpload = !hideCsvRoutes.includes(event.url);
       this.isAuthenticated = !!localStorage.getItem('token');
     });
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.isAuthenticated = false;
+    this.router.navigate(['/welcome-page']);
   }
 
   onFileSelected(event: Event): void {

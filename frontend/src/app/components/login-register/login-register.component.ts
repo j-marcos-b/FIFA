@@ -62,7 +62,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        this.toastr.success('Login exitoso', 'Éxito');
+        // this.toastr.success('Login exitoso', 'Éxito');
         this.router.navigate(['/players']);
       },
       error: (err) => {

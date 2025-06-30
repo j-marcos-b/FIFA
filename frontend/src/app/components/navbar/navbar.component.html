@@ -19,8 +19,13 @@
       </div>
       <!-- Botones derecha -->
       <div class="d-flex ms-auto">
-        <a href="/login" id="login" class="btn btn-outline-info me-2">Entrar</a>
-        <button (click)="onRegisterClick()" id="logout" class="btn btn-outline-info">Registrarse</button>
+        <ng-container *ngIf="!isAuthenticated; else loggedIn">
+          <a href="/login" id="login" class="btn btn-outline-info me-2">Entrar</a>
+          <button (click)="onRegisterClick()" id="register" class="btn btn-outline-info">Registrarse</button>
+        </ng-container>
+        <ng-template #loggedIn>
+          <button (click)="logout()" id="logout" class="btn btn-outline-info">Salir</button>
+        </ng-template>
       </div>
     </div>
   </div>
