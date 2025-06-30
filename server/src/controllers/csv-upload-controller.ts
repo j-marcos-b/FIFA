@@ -7,10 +7,10 @@ import { QueryTypes } from 'sequelize';
 
 const BATCH_SIZE = 1000; // Tamaño del lote para inserción
 
-// Columnas mínimas requeridas para validar el CSV
-const REQUIRED_COLUMNS = [
-  'player_id', 'player_url', 'fifa_version', 'fifa_update', 'fifa_update_date', 'short_name', 'long_name'
-];
+const COLUMN_ALIASES: { [key: string]: string } = {
+  'id': 'player_id',
+  'player_face_url': 'player_url'
+};
 
 export const uploadCsv = async (req: Request, res: Response): Promise<void> => {
   if (!req.file) {
@@ -35,31 +35,42 @@ export const uploadCsv = async (req: Request, res: Response): Promise<void> => {
     .on('data', (row) => {
       if (!headersValidated) {
         headers = Object.keys(row);
-        const missingColumns = REQUIRED_COLUMNS.filter(col => !headers.includes(col));
-        if (missingColumns.length > 0) {
+
+        // Aplicar alias a los headers
+        headers = headers.map(h => COLUMN_ALIASES[h] || h);
+
+        // Validar que al menos player_id y player_url estén presentes
+        if (!headers.includes('player_id') || !headers.includes('player_url')) {
           csvStream.destroy();
           fs.unlinkSync(filePath);
-          res.status(400).json({ msg: `Faltan columnas requeridas: ${missingColumns.join(', ')}` });
+          res.status(400).json({ msg: 'Faltan columnas requeridas: player_id o player_url' });
           return;
         }
         headersValidated = true;
       }
 
-      // Convertir valores vacíos a null y convertir 'Yes'/'No' a booleanos para real_face
+      // Aplicar alias a las claves del row
+      const mappedRow: any = {};
       Object.keys(row).forEach(key => {
-        if (row[key] === '' || row[key] === undefined) {
-          row[key] = null;
+        const mappedKey = COLUMN_ALIASES[key] || key;
+        mappedRow[mappedKey] = row[key];
+      });
+
+      // Convertir valores vacíos a null y convertir 'Yes'/'No' a booleanos para real_face
+      Object.keys(mappedRow).forEach(key => {
+        if (mappedRow[key] === '' || mappedRow[key] === undefined) {
+          mappedRow[key] = null;
         }
         if (key === 'real_face') {
-          if (row[key] === 'Yes') {
-            row[key] = 1;
-          } else if (row[key] === 'No') {
-            row[key] = 0;
+          if (mappedRow[key] === 'Yes') {
+            mappedRow[key] = 1;
+          } else if (mappedRow[key] === 'No') {
+            mappedRow[key] = 0;
           }
         }
       });
 
-      fileRows.push(row);
+      fileRows.push(mappedRow);
 
       if (fileRows.length >= BATCH_SIZE) {
         csvStream.pause();
