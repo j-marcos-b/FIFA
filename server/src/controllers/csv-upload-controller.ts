@@ -91,7 +91,7 @@ export const uploadCsv = async (req: Request, res: Response): Promise<void> => {
           await insertBatch(fileRows);
         }
         fs.unlinkSync(filePath);
-        res.json({ msg: 'Archivo CSV procesado e insertado correctamente' });
+        res.json({ msg: 'Archivo CSV cargado correctamente' });
       } catch (err) {
         console.error('Error al insertar lote final:', err);
         res.status(500).json({ msg: 'Error al insertar datos en la base de datos' });

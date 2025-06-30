@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
   <div class="container-fluid d-flex align-items-center justify-content-between">
     <!-- Logo/Brand a la izquierda -->
-    <a class="navbar-brand" href="/players"><span>FIFA</span> Players</a>
+    <a class="navbar-brand" href="{{ isAuthenticated ? '/players' : '/' }}"><span>FIFA</span> Players</a>
 
     <!-- Toggler para móvil -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -10,7 +10,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <div class="file-upload-container d-flex align-items-center">
+      <div *ngIf="showCsvUpload" class="file-upload-container d-flex align-items-center">
         <input type="text" class="form-control file-name-display" [value]="selectedFileName"
           placeholder="archivo no seleccionado" readonly />
         <label for="csvUpload" class="btn btn-outline-info">Examinar</label>
@@ -19,8 +19,8 @@
       </div>
       <!-- Botones derecha -->
       <div class="d-flex ms-auto">
-        <a href="#" id="login" class="btn btn-outline-info me-2">Login</a>
-        <a href="#" id="logout" class="btn btn-outline-info">Logout</a>
+        <a href="/login" id="login" class="btn btn-outline-info me-2">Entrar</a>
+        <button (click)="onRegisterClick()" id="logout" class="btn btn-outline-info">Registrarse</button>
       </div>
     </div>
   </div>

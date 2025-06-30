@@ -1,0 +1,11 @@
+<div class="auth-container">
+  <h2>{{ isLoginMode ? 'Iniciar Sesión' : 'Registrarse' }}</h2>
+  <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required email />
+    <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required minlength="6" />
+    <button type="submit" [disabled]="authForm.invalid">{{ isLoginMode ? 'Entrar' : 'Registrar' }}</button>
+  </form>
+  <button (click)="toggleMode()">
+    {{ isLoginMode ? 'Crear una cuenta' : 'Ya tengo cuenta' }}
+  </button>
+</div>

@@ -1,17 +1,39 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthModeService } from '../../services/auth-mode.service';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   selectedFile: File | null = null;
   selectedFileName: string = '';
+  showCsvUpload: boolean = true;
+  isAuthenticated: boolean = false;
 
-  constructor(private toastr: ToastrService, private http: HttpClient) {}
+  constructor(
+    private toastr: ToastrService,
+    private http: HttpClient,
+    private router: Router,
+    private authModeService: AuthModeService
+  ) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const hideCsvRoutes = ['/', '/login', '/register'];
+      this.showCsvUpload = !hideCsvRoutes.includes(event.url);
+      this.isAuthenticated = !!localStorage.getItem('token');
+    });
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -55,5 +77,10 @@ export class NavbarComponent {
     if (input) {
       input.value = '';
     }
+  }
+
+  onRegisterClick(): void {
+    this.authModeService.setMode('register');
+    this.router.navigate(['/login']);
   }
 }
