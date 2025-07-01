@@ -20,6 +20,7 @@ export class ListPlayersComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 36;
   filters: any = {};
+  Object = Object; // Agregado para usar Object.keys en el template
 
 
   constructor(private _playerService: PlayerService, private toastr: ToastrService) { }
