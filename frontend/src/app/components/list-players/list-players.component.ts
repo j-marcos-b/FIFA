@@ -103,4 +103,29 @@ getListPlayers(): void {
     if (overall >= 80) return '#ffd700';       // Amarillo para 80-84
     return '#BF814B';                          // Marrón para menos de 80
   }
+
+  exportToCSV(): void {
+    if (!this.listPlayers || this.listPlayers.length === 0) {
+      this.toastr.info('No hay jugadores para exportar', 'Información');
+      return;
+    }
+
+    const replacer = (key: string, value: any) => value === null ? '' : value;
+    const header = Object.keys(this.listPlayers[0]);
+    const csv = [
+      header.join(','), // header row first
+      ...this.listPlayers.map(row => {
+        const typedRow = row as Record<string, any>;
+        return header.map(fieldName => JSON.stringify(typedRow[fieldName], replacer)).join(',');
+      })
+    ].join('\r\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'jugadores.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 }

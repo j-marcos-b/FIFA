@@ -11,6 +11,9 @@
   <div class="filtro-agregar">
     <app-filter-players (applyFilter)="onApplyFilter($event)"></app-filter-players>
     <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-info me-2" (click)="exportToCSV()">
+        Exportar CSV
+      </button>
       <button class="btn btn-outline-info" routerLink="/add">
         ¡Agregate como jugador!
       </button>
