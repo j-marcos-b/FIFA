@@ -6,11 +6,12 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthModeService } from '../../services/auth-mode.service';
+import { FilterPlayersComponent } from '../filter-players/filter-players.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FilterPlayersComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

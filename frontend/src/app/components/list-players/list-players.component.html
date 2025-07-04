@@ -21,7 +21,7 @@
         ¡Agregate como jugador!
       </button>
     </div>
-    <app-filter-players (applyFilter)="onApplyFilter($event)"></app-filter-players>
+    <app-filter-players class="d-none d-lg-block" (applyFilter)="onApplyFilter($event)"></app-filter-players>
   </div>
   <div class="football-cards-container">
     @for (player of listPlayers; track $index) {

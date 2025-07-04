@@ -10,23 +10,43 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <div *ngIf="showCsvUpload" class="file-upload-container d-flex align-items-center">
+      <!-- Filtro de jugadores -->
+      <app-filter-players class="d-block d-lg-none"></app-filter-players>
+
+      <!-- Subida de CSV para móvil -->
+      <div *ngIf="showCsvUpload" class="file-upload-container d-flex align-items-center my-3 d-block d-lg-none">
         <input type="text" class="form-control file-name-display" [value]="selectedFileName"
           placeholder="archivo no seleccionado" readonly />
-        <label for="csvUpload" class="btn btn-outline-info">Examinar</label>
+        <label for="csvUpload" class="btn btn-outline-info ms-2">Examinar</label>
         <input type="file" id="csvUpload" accept=".csv" (change)="onFileSelected($event)" hidden />
         <button class="btn btn-info ms-2" (click)="uploadFile()" [disabled]="!selectedFile">Subir CSV</button>
       </div>
-      <!-- Botones derecha -->
-      <div class="d-flex ms-auto">
+
+      <!-- Subida de CSV para escritorio -->
+      <div *ngIf="showCsvUpload" class="file-upload-container d-flex align-items-center my-3 d-none d-lg-flex">
+        <input type="text" class="form-control file-name-display" [value]="selectedFileName"
+          placeholder="archivo no seleccionado" readonly />
+        <label for="csvUpload" class="btn btn-outline-info ms-2">Examinar</label>
+        <input type="file" id="csvUpload" accept=".csv" (change)="onFileSelected($event)" hidden />
+        <button class="btn btn-info ms-2" (click)="uploadFile()" [disabled]="!selectedFile">Subir CSV</button>
+      </div>
+
+      <!-- Botones y enlaces del menú -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
         <ng-container *ngIf="!isAuthenticated; else loggedIn">
-          <a href="/login" id="login" class="btn btn-outline-info me-2">Entrar</a>
-          <button (click)="onRegisterClick()" id="register" class="btn btn-outline-info">Registrarse</button>
+          <li class="nav-item d-none d-lg-block">
+            <a href="/login" id="login" class="btn btn-outline-info me-2">Entrar</a>
+          </li>
+          <li class="nav-item d-none d-lg-block">
+            <button (click)="onRegisterClick()" id="register" class="btn btn-outline-info">Registrarse</button>
+          </li>
         </ng-container>
         <ng-template #loggedIn>
-          <button (click)="logout()" id="logout" class="btn btn-outline-info">Salir</button>
+          <li class="nav-item d-none d-lg-block">
+            <button (click)="logout()" id="logout" class="btn btn-outline-info">Salir</button>
+          </li>
         </ng-template>
-      </div>
+      </ul>
     </div>
   </div>
 </nav>
