@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthModeService } from '../../services/auth-mode.service';
 import { FilterPlayersComponent } from '../filter-players/filter-players.component';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,12 +21,14 @@ export class NavbarComponent {
   selectedFileName: string = '';
   showCsvUpload: boolean = true;
   isAuthenticated: boolean = false;
+  hasFilters: boolean = false;
 
   constructor(
     private toastr: ToastrService,
     private http: HttpClient,
     private router: Router,
-    private authModeService: AuthModeService
+    private authModeService: AuthModeService,
+    private filterService: FilterService
   ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -34,6 +37,14 @@ export class NavbarComponent {
       this.showCsvUpload = !hideCsvRoutes.includes(event.url);
       this.isAuthenticated = !!localStorage.getItem('token');
     });
+
+    this.filterService.currentFilter.subscribe(filter => {
+      this.hasFilters = filter && Object.keys(filter).length > 0;
+    });
+  }
+
+  onApplyFilter(event: any): void {
+    this.filterService.changeFilter(event);
   }
 
   logout(): void {
@@ -89,5 +100,10 @@ export class NavbarComponent {
   onRegisterClick(): void {
     this.authModeService.setMode('register');
     this.router.navigate(['/login']);
+  }
+
+  onDownloadCsvClick(): void {
+    console.log('Navbar: botón descargar CSV clickeado');
+    this.filterService.triggerDownloadCsv();
   }
 }
