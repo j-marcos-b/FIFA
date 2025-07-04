@@ -11,17 +11,17 @@
       class="fas fa-chart-line"></i> para ver su evolución.
   </p>
   <div class="filtro-agregar">
-    <app-filter-players (applyFilter)="onApplyFilter($event)"></app-filter-players>
     <div class="d-flex justify-content-end">
       @if (filters && Object.keys(filters).length > 0) {
-      <button class="btn btn-outline-info me-2" (click)="exportToCSV()">
-        Exportar CSV
+      <button class="btn btn-link me-2" (click)="exportToCSV()">
+        Descargar CSV
       </button>
       }
       <button class="btn btn-outline-info" routerLink="/add">
         ¡Agregate como jugador!
       </button>
     </div>
+    <app-filter-players (applyFilter)="onApplyFilter($event)"></app-filter-players>
   </div>
   <div class="football-cards-container">
     @for (player of listPlayers; track $index) {

@@ -110,5 +110,5 @@ span {
 }
 
 .btn-outline-info {
-  color: #fff;
+  color: #fff !important;
 }

@@ -27,6 +27,31 @@
   align-items: center;
 }
 
+@media (max-width: 991px) {
+  .filtro-agregar {
+    flex-direction: column;
+    align-items: center;
+  }
+  .filtro-agregar > app-filter-players {
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .filtro-agregar > div.d-flex {
+    order: 0;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    gap: 10px;
+  }
+  /* Ajustar margen inferior del botón para separación */
+  .filtro-agregar > div.d-flex > button.btn-outline-info {
+    margin-bottom: 0;
+  }
+}
+
 .football-cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
