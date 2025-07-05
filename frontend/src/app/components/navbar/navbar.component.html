@@ -21,9 +21,6 @@
         <input type="file" id="csvUpload" accept=".csv" (change)="onFileSelected($event)" hidden />
         <button class="btn btn-info ms-2" (click)="uploadFile()" [disabled]="!selectedFile">Subir CSV</button>
       </div>
-      <button *ngIf="hasFilters" class="btn btn-link ms-2 d-block d-lg-none" (click)="onDownloadCsvClick()">
-        Descargar CSV
-      </button>
 
       <!-- Subida de CSV para escritorio -->
       <div *ngIf="showCsvUpload" class="file-upload-container d-flex align-items-center my-3 d-none d-lg-flex">
